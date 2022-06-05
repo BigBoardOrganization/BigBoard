@@ -432,3 +432,5 @@ dist
 # .pnp.*
 
 # End of https://www.toptal.com/developers/gitignore/api/java,node,maven,yarn,intellij,intellij+iml,intellij+all
+
+node/

@@ -433,4 +433,4 @@ dist
 
 # End of https://www.toptal.com/developers/gitignore/api/java,node,maven,yarn,intellij,intellij+iml,intellij+all
 
-node/
+/big-board-ui/node/

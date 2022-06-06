@@ -11,6 +11,7 @@
 
     <artifactId>big-board-ui</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <name>big-board-ui</name>
 
     <build>
         <resources>

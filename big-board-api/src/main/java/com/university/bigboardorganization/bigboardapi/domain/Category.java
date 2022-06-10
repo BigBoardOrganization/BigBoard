@@ -1,7 +1,9 @@
 package com.university.bigboardorganization.bigboardapi.domain;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,9 +11,11 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import java.util.List;
 
-@Getter
-@Setter
+@Data
 @Entity
+@Builder(toBuilder = true)
+@AllArgsConstructor
+@NoArgsConstructor
 public class Category {
 
     @Id
@@ -19,6 +23,10 @@ public class Category {
     private Long id;
 
     private String name;
+
+    private String description;
+
+    private String color;
 
     @OneToMany(mappedBy = "category")
     private List<Post> posts;

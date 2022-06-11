@@ -62,7 +62,12 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void delete(Long id) {
-        categoryRepository.delete(findByIdOrThrow(id));
+        Category categoryFromDB = findByIdOrThrow(id);
+        if(categoryFromDB.getPosts().isEmpty()){
+            categoryRepository.delete(categoryFromDB);
+        } else {
+            throw new RuntimeException("Category has posts and cannot be deleted!");
+        }
     }
 
     private Category findByIdOrThrow(Long id) {

@@ -1,10 +1,8 @@
 package com.university.bigboardorganization.bigboardapi.api;
 
-import com.university.bigboardorganization.bigboardapi.domain.Category;
 import com.university.bigboardorganization.bigboardapi.dto.CategoryCreateRequest;
 import com.university.bigboardorganization.bigboardapi.dto.CategoryDto;
 import com.university.bigboardorganization.bigboardapi.dto.CategoryUpdateRequest;
-import com.university.bigboardorganization.bigboardapi.repository.CategoryRepository;
 import com.university.bigboardorganization.bigboardapi.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

@@ -21,4 +21,5 @@ public class CategoryUpdateRequest {
 
     @NotBlank
     private String color;
+
 }

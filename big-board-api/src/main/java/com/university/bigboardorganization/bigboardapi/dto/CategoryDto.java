@@ -1,6 +1,5 @@
 package com.university.bigboardorganization.bigboardapi.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.university.bigboardorganization.bigboardapi.domain.Post;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,7 +15,6 @@ import java.util.List;
 @AllArgsConstructor
 public class CategoryDto {
 
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long id;
 
     @NotBlank

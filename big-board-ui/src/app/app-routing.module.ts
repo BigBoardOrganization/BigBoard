@@ -6,6 +6,7 @@ const routes: Routes = [
   {
     path: '', component: DefaultLayoutComponent, children: [
       { path: '', loadChildren: () => import("./pages/main/main.module").then( module => module.MainModule) },
+      { path: 'category/:id', loadChildren: () => import("./pages/main/main.module").then( module => module.MainModule) },
     ]
   },
   { path: '**', redirectTo: '/' },

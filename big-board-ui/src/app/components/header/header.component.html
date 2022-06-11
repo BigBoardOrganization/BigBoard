@@ -10,8 +10,8 @@
       <mat-menu #menu="matMenu">
         <ng-container *ngFor="let o of options">
           <button mat-menu-item (click)="o.action()">
-            <mat-icon>{{o.icon}}</mat-icon>
-            <span>{{o.title}}</span>
+            <mat-icon>{{ o.icon }}</mat-icon>
+            <span>{{ o.title }}</span>
           </button>
         </ng-container>
       </mat-menu>

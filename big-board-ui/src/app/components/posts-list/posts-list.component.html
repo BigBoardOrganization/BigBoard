@@ -1,0 +1,33 @@
+<div class="posts-wrapper">
+
+  <form action="">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <input matInput placeholder="Search ..." (change)="searchInput($event)">
+    </mat-form-field>
+  </form>
+
+  <mat-list class="list">
+    <h3 *ngIf="(!data.content || !data.content.length) && !isLoading">No items found.</h3>
+
+    <mat-spinner
+      class="spinner"
+      *ngIf="isLoading"
+      [diameter]="55"
+      [strokeWidth]="5"
+    ></mat-spinner>
+
+    <mat-list-item *ngFor="let post of data.content">
+      {{ post.name }}
+    </mat-list-item>
+  </mat-list>
+
+  <mat-paginator
+              [length]="data.totalPages"
+              [pageSize]="15"
+              [pageSizeOptions]="[15]"
+              (page)="pageChangeInput($event)"
+              aria-label="Select page">
+  </mat-paginator>
+
+
+</div>

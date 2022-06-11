@@ -1,5 +1,11 @@
-<div class="container">
-  <h2>Main page items</h2>
-
-  <mat-spinner class="spinner" *ngIf="isLoading" [diameter]="65" [strokeWidth]="5"></mat-spinner>
+<div class="main-wrap">
+  <div class="container">
+    <app-categories-board></app-categories-board>
+    <app-posts-list
+      [data]="postsData"
+      [isLoading]="isLoading"
+      (search)="search($event)"
+      (pageChange)="pageChange($event)"
+    ></app-posts-list>
+  </div>
 </div>

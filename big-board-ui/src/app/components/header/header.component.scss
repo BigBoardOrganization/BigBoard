@@ -1,0 +1,33 @@
+.header {
+  background-color: rgb(29, 29, 94);
+  padding: 20px 15px;
+
+  &-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .title {
+      color: #f5f5f5;
+      font: 400 26px "Lobster";
+      line-height: 1;
+      margin: 0;
+    }
+
+    .mat-menu-trigger {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #f5f5f5;
+      cursor: pointer;
+    }
+
+    .menu-icon {
+      font-size: 35px;
+      height: auto;
+      width: auto;
+    }
+  }
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");

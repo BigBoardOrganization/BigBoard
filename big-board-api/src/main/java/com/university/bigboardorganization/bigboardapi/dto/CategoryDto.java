@@ -26,6 +26,4 @@ public class CategoryDto {
     @NotBlank
     private String color;
 
-    private List<Post> posts;
-
 }

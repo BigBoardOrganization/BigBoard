@@ -1,0 +1,20 @@
+<div class="categories-wrapper">
+  <mat-spinner
+    class="spinner"
+    *ngIf="isLoading"
+    [diameter]="55"
+    [strokeWidth]="5"
+  ></mat-spinner>
+
+  <ng-container *ngFor="let category of categories">
+    <div
+      class="category"
+      matRipple
+      [matTooltip]="category.description || category.name"
+      (click)="loadCategory(category.id)"
+    >
+      <mat-icon class="icon">{{ category.icon }}</mat-icon>
+      <h2 class="label">{{ category.name | titlecase }}</h2>
+    </div>
+  </ng-container>
+</div>

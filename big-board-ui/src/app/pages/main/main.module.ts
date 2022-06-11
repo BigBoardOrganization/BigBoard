@@ -1,3 +1,5 @@
+import { PostsListModule } from '../../components/posts-list/posts-list.module';
+import { CategoriesBoardModule } from './../../components/categories-board/categories-board.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
@@ -8,22 +10,20 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    component: MainComponent
-  }
+    component: MainComponent,
+  },
 ];
 
 @NgModule({
-  declarations: [
-    MainComponent,
-  ],
+  declarations: [MainComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    MatProgressSpinnerModule
+    CategoriesBoardModule,
+    PostsListModule,
+
+    MatProgressSpinnerModule,
   ],
-  exports: [
-    MainComponent
-  ]
+  exports: [MainComponent],
 })
-export class MainModule {
-}
+export class MainModule {}

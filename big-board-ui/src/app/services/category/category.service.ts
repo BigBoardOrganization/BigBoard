@@ -12,7 +12,7 @@ export class CategoryService {
   ) { }
 
   public getAllCategories(): Observable<any> {
-    return this.api.get(`/api/categories`, {});
+    return this.api.get(`/api/category`, {});
   }
 
 }

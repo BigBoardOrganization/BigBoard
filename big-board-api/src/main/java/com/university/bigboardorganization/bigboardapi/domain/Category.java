@@ -22,6 +22,8 @@ public class Category {
     @GeneratedValue
     private Long id;
 
+    private String icon;
+
     private String name;
 
     private String description;

@@ -18,6 +18,9 @@ public class CategoryDto {
     private Long id;
 
     @NotBlank
+    private String icon;
+
+    @NotBlank
     private String name;
 
     @NotBlank

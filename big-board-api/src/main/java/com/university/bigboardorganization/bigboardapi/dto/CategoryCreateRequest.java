@@ -14,6 +14,9 @@ import javax.validation.constraints.NotBlank;
 public class CategoryCreateRequest {
 
     @NotBlank
+    private String icon;
+
+    @NotBlank
     private String name;
 
     @NotBlank

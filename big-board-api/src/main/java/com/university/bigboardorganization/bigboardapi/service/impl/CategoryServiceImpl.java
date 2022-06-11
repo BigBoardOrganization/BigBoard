@@ -38,6 +38,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public CategoryDto create(CategoryCreateRequest categoryCreateRequest) {
         Category category = Category.builder()
+                .icon(categoryCreateRequest.getIcon())
                 .name(categoryCreateRequest.getName())
                 .description(categoryCreateRequest.getDescription())
                 .color(categoryCreateRequest.getColor())
@@ -51,6 +52,7 @@ public class CategoryServiceImpl implements CategoryService {
         Category categoryFromDB = findByIdOrThrow(id);
 
         Category category = categoryFromDB.toBuilder()
+                .icon(categoryUpdateRequest.getIcon())
                 .name(categoryUpdateRequest.getName())
                 .description(categoryUpdateRequest.getDescription())
                 .color(categoryUpdateRequest.getColor())

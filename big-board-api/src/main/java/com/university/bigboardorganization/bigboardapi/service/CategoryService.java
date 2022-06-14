@@ -1,5 +1,6 @@
 package com.university.bigboardorganization.bigboardapi.service;
 
+import com.university.bigboardorganization.bigboardapi.domain.Category;
 import com.university.bigboardorganization.bigboardapi.dto.CategoryCreateRequest;
 import com.university.bigboardorganization.bigboardapi.dto.CategoryDto;
 import com.university.bigboardorganization.bigboardapi.dto.CategoryUpdateRequest;
@@ -17,5 +18,7 @@ public interface CategoryService {
     CategoryDto update(Long id, CategoryUpdateRequest categoryUpdateRequest);
 
     void delete(Long id);
+
+    Category findByIdOrThrow(Long id);
 
 }

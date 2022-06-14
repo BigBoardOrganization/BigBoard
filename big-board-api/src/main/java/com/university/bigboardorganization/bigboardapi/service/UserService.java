@@ -1,5 +1,6 @@
 package com.university.bigboardorganization.bigboardapi.service;
 
+import com.university.bigboardorganization.bigboardapi.domain.User;
 import com.university.bigboardorganization.bigboardapi.dto.UserCreateRequestDto;
 import com.university.bigboardorganization.bigboardapi.dto.UserDto;
 import com.university.bigboardorganization.bigboardapi.dto.UserUpdateRequestDto;
@@ -22,4 +23,6 @@ public interface UserService {
     void enable(Long id);
 
     void changePassword(Long id, String password);
+
+    User findByIdOrThrow(Long id);
 }

@@ -1,12 +1,45 @@
 package com.university.bigboardorganization.bigboardapi.api;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.university.bigboardorganization.bigboardapi.dto.PostDto;
+import com.university.bigboardorganization.bigboardapi.dto.PostRequestDto;
+import com.university.bigboardorganization.bigboardapi.service.PostService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "/api/post")
+@RequestMapping(value = "/api/posts")
+@RequiredArgsConstructor
 public class PostController {
 
-    // TODO: CRUD
+    private final PostService postService;
+
+    @GetMapping
+    public Page<PostDto> findAll(Pageable pageable) {
+        return postService.findAll(pageable);
+    }
+
+    @GetMapping("{id}")
+    public PostDto findById(@PathVariable Long id) {
+        return postService.findById(id);
+    }
+
+    @PostMapping
+    public PostDto create(@RequestBody @Validated PostRequestDto postRequestDto) {
+        return postService.create(postRequestDto);
+    }
+
+    @PutMapping("{id}")
+    public PostDto update(@PathVariable Long id,
+                          @RequestBody @Validated PostRequestDto postRequestDto) {
+        return postService.update(id, postRequestDto);
+    }
+
+    @DeleteMapping("{id}")
+    public void delete(@PathVariable Long id) {
+        postService.delete(id);
+    }
 
 }

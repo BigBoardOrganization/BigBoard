@@ -89,7 +89,7 @@ public class UserServiceImpl implements UserService {
         userMapper.userToUserDto(userRepository.save(user));
     }
 
-    private User findByIdOrThrow(Long id) {
+    public User findByIdOrThrow(Long id) {
         return userRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException(ENTITY_NAME, id));
     }

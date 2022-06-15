@@ -25,7 +25,7 @@ public class UserController {
         return userService.findAll();
     }
 
-    @GetMapping("login")
+    @PostMapping("login")
     public UserDto login(@RequestBody UserLoginDto loginDto) throws LoginException {
         return userService.login(loginDto.getEmail(), loginDto.getPassword());
     }

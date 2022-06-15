@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { DefaultLayoutModule } from './layouts/default-layout/default-layout.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
+import { AdminLayoutModule } from './layouts/admin-layout/admin-layout.module';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
     AppRoutingModule,
     DefaultLayoutModule,
+    AdminLayoutModule,
     BrowserAnimationsModule
   ],
   providers: [],

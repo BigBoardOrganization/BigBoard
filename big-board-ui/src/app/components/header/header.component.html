@@ -1,7 +1,7 @@
 <header class="header">
   <div class="container">
     <div class="header-content">
-      <h1 class="title">BigBoard</h1>
+      <h1 class="title" (click)="openMain()">BigBoard</h1>
 
       <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Menu">
         <mat-icon class="menu-icon">menu</mat-icon>
@@ -9,7 +9,7 @@
 
       <mat-menu #menu="matMenu">
         <ng-container *ngFor="let o of options">
-          <button mat-menu-item (click)="o.action()">
+          <button mat-menu-item *ngIf="o.canShow()" (click)="o.action()">
             <mat-icon>{{ o.icon }}</mat-icon>
             <span>{{ o.title }}</span>
           </button>

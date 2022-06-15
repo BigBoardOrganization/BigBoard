@@ -4,6 +4,7 @@ import com.university.bigboardorganization.bigboardapi.domain.Category;
 import com.university.bigboardorganization.bigboardapi.dto.CategoryCreateRequest;
 import com.university.bigboardorganization.bigboardapi.dto.CategoryDto;
 import com.university.bigboardorganization.bigboardapi.dto.CategoryUpdateRequest;
+import com.university.bigboardorganization.bigboardapi.exception.EntityNotFoundException;
 import com.university.bigboardorganization.bigboardapi.mapper.CategoryMapper;
 import com.university.bigboardorganization.bigboardapi.repository.CategoryRepository;
 import com.university.bigboardorganization.bigboardapi.service.CategoryService;
@@ -73,7 +74,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     private Category findByIdOrThrow(Long id) {
-        return categoryRepository.findById(id).orElseThrow(() -> new RuntimeException("Category not found!"));
+        return categoryRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Category", id));
     }
 
 }

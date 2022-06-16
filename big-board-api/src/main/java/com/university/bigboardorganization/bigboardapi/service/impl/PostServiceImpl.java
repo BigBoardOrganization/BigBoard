@@ -27,7 +27,13 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Page<PostDto> findAll(Pageable pageable) {
-        return postRepository.findAll(pageable).map(postMapper::postToPostDto);
+        return postRepository.findByOrderByCreatedDateDesc(pageable).map(postMapper::postToPostDto);
+    }
+
+    @Override
+    public Page<PostDto> findAllByUserId(Long userId, Pageable pageable) {
+        return postRepository.findAllByUserIdOrderByCreatedDateDesc(userId, pageable)
+                .map(postMapper::postToPostDto);
     }
 
     @Override

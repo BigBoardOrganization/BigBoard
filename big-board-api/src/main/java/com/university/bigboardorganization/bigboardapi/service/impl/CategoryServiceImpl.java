@@ -62,11 +62,10 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryMapper.categoryToCategoryDto(categoryRepository.save(category));
     }
 
-
     @Override
     public void delete(Long id) {
         Category categoryFromDB = findByIdOrThrow(id);
-        if(categoryFromDB.getPosts().isEmpty()){
+        if (categoryFromDB.getPosts().isEmpty()) {
             categoryRepository.delete(categoryFromDB);
         } else {
             throw new RuntimeException("Category has posts and cannot be deleted!");

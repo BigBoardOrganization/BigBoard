@@ -9,6 +9,8 @@ public interface PostService {
 
     Page<PostDto> findAll(Pageable pageable);
 
+    Page<PostDto> findAllByUserId(Long userId, Pageable pageable);
+
     PostDto findById(Long id);
 
     PostDto create(PostRequestDto categoryCreateRequest);

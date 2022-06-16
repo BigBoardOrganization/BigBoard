@@ -21,6 +21,11 @@ public class PostController {
         return postService.findAll(pageable);
     }
 
+    @GetMapping("byUser/{userId}")
+    public Page<PostDto> findAllByUserId(Pageable pageable, @PathVariable Long userId) {
+        return postService.findAllByUserId(userId, pageable);
+    }
+
     @GetMapping("{id}")
     public PostDto findById(@PathVariable Long id) {
         return postService.findById(id);

@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { DefaultLayoutModule } from './layouts/default-layout/default-layout.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
+import { TrimPipe } from './pipes/trim.pipe';
 
 
 @NgModule({
@@ -17,7 +19,8 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
     AppRoutingModule,
     DefaultLayoutModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    LazyLoadImageModule
   ],
   providers: [],
   bootstrap: [AppComponent]

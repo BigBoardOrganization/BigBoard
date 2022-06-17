@@ -1,0 +1,31 @@
+<div class="wrap">
+  <div class="container">
+    <div class="toolbar">
+      <button mat-button [routerLink]="'/'">
+        <mat-icon>keyboard_arrow_left</mat-icon>
+      </button>
+
+      <ul class="breadcrumbs">
+        <li [routerLink]="'/'">Home</li> /
+        <li [routerLink]="'/category/' + post.categoryId">{{ getCategoryNameId(post.categoryId) }}</li> /
+        <li [routerLink]="'/post/' + post.id">{{ post.title }}</li>
+      </ul>
+    </div>
+
+    <div class="content-wrap">
+      <img class="image" [defaultImage]="" [lazyLoad]="post.imageUrl" [alt]="post.title">
+
+      <div class="content">
+        <div class="content-header">
+          <h3 class="category">{{getCategoryNameId(post.categoryId)}}</h3> -
+          <h3 class="date">{{post.createdDate}}</h3>
+        </div>
+
+        <h1 class="title">{{post.title}}</h1>
+        <p class="text">{{ post.description }}</p>
+      </div>
+    </div>
+
+  </div>
+
+</div>

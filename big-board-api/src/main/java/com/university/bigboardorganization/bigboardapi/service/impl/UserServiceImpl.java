@@ -3,6 +3,7 @@ package com.university.bigboardorganization.bigboardapi.service.impl;
 import com.university.bigboardorganization.bigboardapi.domain.User;
 import com.university.bigboardorganization.bigboardapi.dto.UserCreateRequestDto;
 import com.university.bigboardorganization.bigboardapi.dto.UserDto;
+import com.university.bigboardorganization.bigboardapi.dto.UserMiniDto;
 import com.university.bigboardorganization.bigboardapi.dto.UserUpdateRequestDto;
 import com.university.bigboardorganization.bigboardapi.exception.EntityDuplicatesException;
 import com.university.bigboardorganization.bigboardapi.exception.EntityNotFoundException;
@@ -33,6 +34,11 @@ public class UserServiceImpl implements UserService {
                 .stream()
                 .map(userMapper::userToUserDto)
                 .toList();
+    }
+
+    @Override
+    public UserMiniDto findById(Long id) {
+        return userMapper.userToUserMiniDto(findByIdOrThrow(id));
     }
 
     @Override

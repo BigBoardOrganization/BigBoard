@@ -1,6 +1,7 @@
 package com.university.bigboardorganization.bigboardapi.api;
 
-import com.university.bigboardorganization.bigboardapi.dto.PostDto;
+import com.university.bigboardorganization.bigboardapi.dto.PostFullDto;
+import com.university.bigboardorganization.bigboardapi.dto.PostMiniDto;
 import com.university.bigboardorganization.bigboardapi.dto.PostRequestDto;
 import com.university.bigboardorganization.bigboardapi.service.PostService;
 import lombok.RequiredArgsConstructor;
@@ -17,28 +18,28 @@ public class PostController {
     private final PostService postService;
 
     @GetMapping
-    public Page<PostDto> findAll(Pageable pageable) {
+    public Page<PostMiniDto> findAll(Pageable pageable) {
         return postService.findAll(pageable);
     }
 
     @GetMapping("byUser/{userId}")
-    public Page<PostDto> findAllByUserId(Pageable pageable, @PathVariable Long userId) {
+    public Page<PostMiniDto> findAllByUserId(Pageable pageable, @PathVariable Long userId) {
         return postService.findAllByUserId(userId, pageable);
     }
 
     @GetMapping("{id}")
-    public PostDto findById(@PathVariable Long id) {
+    public PostFullDto findById(@PathVariable Long id) {
         return postService.findById(id);
     }
 
     @PostMapping
-    public PostDto create(@RequestBody @Validated PostRequestDto postRequestDto) {
+    public PostMiniDto create(@RequestBody @Validated PostRequestDto postRequestDto) {
         return postService.create(postRequestDto);
     }
 
     @PutMapping("{id}")
-    public PostDto update(@PathVariable Long id,
-                          @RequestBody @Validated PostRequestDto postRequestDto) {
+    public PostMiniDto update(@PathVariable Long id,
+                              @RequestBody @Validated PostRequestDto postRequestDto) {
         return postService.update(id, postRequestDto);
     }
 

@@ -1,21 +1,22 @@
 package com.university.bigboardorganization.bigboardapi.service;
 
-import com.university.bigboardorganization.bigboardapi.dto.PostDto;
+import com.university.bigboardorganization.bigboardapi.dto.PostFullDto;
+import com.university.bigboardorganization.bigboardapi.dto.PostMiniDto;
 import com.university.bigboardorganization.bigboardapi.dto.PostRequestDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface PostService {
 
-    Page<PostDto> findAll(Pageable pageable);
+    Page<PostMiniDto> findAll(Pageable pageable);
 
-    Page<PostDto> findAllByUserId(Long userId, Pageable pageable);
+    Page<PostMiniDto> findAllByUserId(Long userId, Pageable pageable);
 
-    PostDto findById(Long id);
+    PostFullDto findById(Long id);
 
-    PostDto create(PostRequestDto categoryCreateRequest);
+    PostMiniDto create(PostRequestDto categoryCreateRequest);
 
-    PostDto update(Long id, PostRequestDto categoryUpdateRequest);
+    PostMiniDto update(Long id, PostRequestDto categoryUpdateRequest);
 
     void delete(Long id);
 }

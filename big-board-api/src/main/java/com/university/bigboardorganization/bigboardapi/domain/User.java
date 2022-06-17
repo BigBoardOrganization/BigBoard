@@ -1,10 +1,8 @@
 package com.university.bigboardorganization.bigboardapi.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.university.bigboardorganization.bigboardapi.constant.UserRole;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -42,8 +40,11 @@ public class User {
     @Builder.Default
     private boolean enabled = true;
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     @Builder.Default
-    @OneToMany(mappedBy = "user")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @JsonIgnore
     private List<Post> posts = new ArrayList<>();
 
 }

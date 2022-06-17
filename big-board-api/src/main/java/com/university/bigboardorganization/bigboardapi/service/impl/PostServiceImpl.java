@@ -1,7 +1,8 @@
 package com.university.bigboardorganization.bigboardapi.service.impl;
 
 import com.university.bigboardorganization.bigboardapi.domain.Post;
-import com.university.bigboardorganization.bigboardapi.dto.PostDto;
+import com.university.bigboardorganization.bigboardapi.dto.PostFullDto;
+import com.university.bigboardorganization.bigboardapi.dto.PostMiniDto;
 import com.university.bigboardorganization.bigboardapi.dto.PostRequestDto;
 import com.university.bigboardorganization.bigboardapi.exception.EntityNotFoundException;
 import com.university.bigboardorganization.bigboardapi.mapper.PostMapper;
@@ -26,37 +27,41 @@ public class PostServiceImpl implements PostService {
     private final UserService userService;
 
     @Override
-    public Page<PostDto> findAll(Pageable pageable) {
-        return postRepository.findByOrderByCreatedDateDesc(pageable).map(postMapper::postToPostDto);
+    public Page<PostMiniDto> findAll(Pageable pageable) {
+        return postRepository.findByOrderByCreatedDateDesc(pageable).map(postMapper::postToPostMiniDto);
     }
 
     @Override
-    public Page<PostDto> findAllByUserId(Long userId, Pageable pageable) {
+    public Page<PostMiniDto> findAllByUserId(Long userId, Pageable pageable) {
         return postRepository.findAllByUserIdOrderByCreatedDateDesc(userId, pageable)
-                .map(postMapper::postToPostDto);
+                .map(postMapper::postToPostMiniDto);
     }
 
     @Override
-    public PostDto findById(Long id) {
-        return postMapper.postToPostDto(findByIdOrThrow(id));
+    public PostFullDto findById(Long id) {
+        Post post = findByIdOrThrow(id);
+        PostFullDto postFullDto = postMapper.postToPostFullDto(post);
+        postFullDto.setCategory(categoryService.findById(post.getCategory().getId()));
+        postFullDto.setUser(userService.findById(post.getUser().getId()));
+        return postFullDto;
     }
 
     @Override
-    public PostDto create(PostRequestDto postDto) {
+    public PostMiniDto create(PostRequestDto postDto) {
         Post post = Post.builder()
                 .title(postDto.getTitle())
-                .description(postDto.getTitle())
+                .description(postDto.getDescription())
                 .imageUrl(postDto.getImageUrl())
                 .createdDate(LocalDateTime.now())
                 .category(categoryService.findByIdOrThrow(postDto.getCategoryId()))
                 .user(userService.findByIdOrThrow(postDto.getUserId()))
                 .build();
 
-        return postMapper.postToPostDto(postRepository.save(post));
+        return postMapper.postToPostMiniDto(postRepository.save(post));
     }
 
     @Override
-    public PostDto update(Long id, PostRequestDto postDto) {
+    public PostMiniDto update(Long id, PostRequestDto postDto) {
         Post postFromDb = findByIdOrThrow(id);
 
         Post post = postFromDb.toBuilder()
@@ -67,7 +72,7 @@ public class PostServiceImpl implements PostService {
                 .user(userService.findByIdOrThrow(postDto.getUserId()))
                 .build();
 
-        return postMapper.postToPostDto(postRepository.save(post));
+        return postMapper.postToPostMiniDto(postRepository.save(post));
     }
 
     @Override

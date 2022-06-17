@@ -3,6 +3,7 @@ package com.university.bigboardorganization.bigboardapi.service;
 import com.university.bigboardorganization.bigboardapi.domain.User;
 import com.university.bigboardorganization.bigboardapi.dto.UserCreateRequestDto;
 import com.university.bigboardorganization.bigboardapi.dto.UserDto;
+import com.university.bigboardorganization.bigboardapi.dto.UserMiniDto;
 import com.university.bigboardorganization.bigboardapi.dto.UserUpdateRequestDto;
 
 import javax.security.auth.login.LoginException;
@@ -11,6 +12,8 @@ import java.util.List;
 public interface UserService {
 
     List<UserDto> findAll();
+
+    UserMiniDto findById(Long id);
 
     UserDto login(String email, String password) throws LoginException;
 

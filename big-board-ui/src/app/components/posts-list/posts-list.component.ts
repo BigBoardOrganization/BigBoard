@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-posts-list',
@@ -22,7 +23,7 @@ export class PostsListComponent implements OnInit {
     this.search.emit(event.target.value);
   }
 
-  public pageChangeInput(event: any): void{
-    this.pageChange.emit(event);
+  public pageChangeInput(event: PageEvent): void{
+    this.pageChange.emit(event.pageIndex);
   }
 }

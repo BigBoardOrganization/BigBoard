@@ -1,0 +1,28 @@
+<mat-drawer-container class="container">
+
+  <mat-drawer mode="side" opened class="sidebar">
+    <mat-selection-list [multiple]="false" class="types-list">
+      <mat-list-option *ngFor="let type of types" [value]="types" class="type">
+        {{type}}
+      </mat-list-option>
+    </mat-selection-list>
+  </mat-drawer>
+
+  <mat-drawer-content class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <td>Post</td>
+          <td>Actions</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Prodam navoz</td>
+          <td><button>BUY</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </mat-drawer-content>
+
+</mat-drawer-container>

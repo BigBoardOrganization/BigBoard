@@ -36,8 +36,17 @@ export class HeaderComponent implements OnInit {
       {
         title: 'Login',
         icon: 'last_page',
-        canShow: () => true,
+        canShow: () => !this.auth.currentUserValue,
         action: () => this.router.navigate(['/signin']),
+      },
+      {
+        title: 'Logout',
+        icon: 'logout',
+        canShow: () => this.auth.currentUserValue,
+        action: () => {
+          this.auth.logout();
+          this.openMain()
+        }
       }
     ];
   }

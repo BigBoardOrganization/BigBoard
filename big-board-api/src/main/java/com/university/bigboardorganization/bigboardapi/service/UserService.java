@@ -28,4 +28,6 @@ public interface UserService {
     void changePassword(Long id, String password);
 
     User findByIdOrThrow(Long id);
+
+    List<Long> allUserIds();
 }

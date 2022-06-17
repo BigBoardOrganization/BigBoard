@@ -1,6 +1,7 @@
 package com.university.bigboardorganization.bigboardapi.service.impl;
 
 import com.university.bigboardorganization.bigboardapi.domain.Post;
+import com.university.bigboardorganization.bigboardapi.dto.PostFilter;
 import com.university.bigboardorganization.bigboardapi.dto.PostFullDto;
 import com.university.bigboardorganization.bigboardapi.dto.PostMiniDto;
 import com.university.bigboardorganization.bigboardapi.dto.PostRequestDto;
@@ -16,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -31,10 +33,40 @@ public class PostServiceImpl implements PostService {
         return postRepository.findByOrderByCreatedDateDesc(pageable).map(postMapper::postToPostMiniDto);
     }
 
+    private boolean setDefaultIfNullAndReturnHasTitle(PostFilter postFilter) {
+        boolean hasTitle = !Objects.isNull(postFilter.getTitle()) || postFilter.getTitle().isEmpty();
+
+        if (Objects.isNull(postFilter.getCategories()) || postFilter.getCategories().isEmpty()) {
+            postFilter.setCategories(categoryService.allCategoryIds());
+        }
+
+        if (Objects.isNull(postFilter.getUsers()) || postFilter.getUsers().isEmpty()) {
+            postFilter.setUsers(userService.allUserIds());
+        }
+
+        return hasTitle;
+    }
+
     @Override
-    public Page<PostMiniDto> findAllByUserId(Long userId, Pageable pageable) {
-        return postRepository.findAllByUserIdOrderByCreatedDateDesc(userId, pageable)
-                .map(postMapper::postToPostMiniDto);
+    public Page<PostMiniDto> findByFilter(PostFilter filter, Pageable pageable) {
+        Page<Post> page;
+
+        // if filter has title
+        if (setDefaultIfNullAndReturnHasTitle(filter)) {
+            page = postRepository.findAllByTitleContainsAndCategoryIdInAndUserIdInOrderByCreatedDateDesc(
+                    filter.getTitle(),
+                    filter.getCategories(),
+                    filter.getUsers(),
+                    pageable
+            );
+        } else {
+            page = postRepository.findAllByCategoryIdInAndUserIdInOrderByCreatedDateDesc(
+                    filter.getCategories(),
+                    filter.getUsers(),
+                    pageable
+            );
+        }
+        return page.map(postMapper::postToPostMiniDto);
     }
 
     @Override

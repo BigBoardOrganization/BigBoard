@@ -1,5 +1,6 @@
 package com.university.bigboardorganization.bigboardapi.service;
 
+import com.university.bigboardorganization.bigboardapi.dto.PostFilter;
 import com.university.bigboardorganization.bigboardapi.dto.PostFullDto;
 import com.university.bigboardorganization.bigboardapi.dto.PostMiniDto;
 import com.university.bigboardorganization.bigboardapi.dto.PostRequestDto;
@@ -10,7 +11,7 @@ public interface PostService {
 
     Page<PostMiniDto> findAll(Pageable pageable);
 
-    Page<PostMiniDto> findAllByUserId(Long userId, Pageable pageable);
+    Page<PostMiniDto> findByFilter(PostFilter filter, Pageable pageable);
 
     PostFullDto findById(Long id);
 

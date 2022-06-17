@@ -13,6 +13,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CategoryServiceImpl implements CategoryService {
 
@@ -74,6 +76,13 @@ public class CategoryServiceImpl implements CategoryService {
 
     public Category findByIdOrThrow(Long id) {
         return categoryRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Category", id));
+    }
+
+    @Override
+    public List<Long> allCategoryIds() {
+        return categoryRepository.findAll().stream()
+                .map(Category::getId)
+                .toList();
     }
 
 }

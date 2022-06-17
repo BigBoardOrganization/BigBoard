@@ -100,6 +100,13 @@ public class UserServiceImpl implements UserService {
                 () -> new EntityNotFoundException(ENTITY_NAME, id));
     }
 
+    @Override
+    public List<Long> allUserIds() {
+        return userRepository.findAll().stream()
+                .map(User::getId)
+                .toList();
+    }
+
     private User findByEmailOrThrow(String email) {
         return userRepository.findByEmail(email).orElseThrow(
                 () -> new EntityNotFoundException(ENTITY_NAME, "email", email));

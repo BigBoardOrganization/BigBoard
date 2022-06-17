@@ -1,5 +1,6 @@
 package com.university.bigboardorganization.bigboardapi.api;
 
+import com.university.bigboardorganization.bigboardapi.dto.PostFilter;
 import com.university.bigboardorganization.bigboardapi.dto.PostFullDto;
 import com.university.bigboardorganization.bigboardapi.dto.PostMiniDto;
 import com.university.bigboardorganization.bigboardapi.dto.PostRequestDto;
@@ -22,9 +23,12 @@ public class PostController {
         return postService.findAll(pageable);
     }
 
-    @GetMapping("byUser/{userId}")
-    public Page<PostMiniDto> findAllByUserId(Pageable pageable, @PathVariable Long userId) {
-        return postService.findAllByUserId(userId, pageable);
+    @GetMapping("filter")
+    public Page<PostMiniDto> filter(
+            Pageable pageable,
+            @RequestBody PostFilter postFilter) {
+        System.out.println(postFilter);
+        return postService.findByFilter(postFilter, pageable);
     }
 
     @GetMapping("{id}")

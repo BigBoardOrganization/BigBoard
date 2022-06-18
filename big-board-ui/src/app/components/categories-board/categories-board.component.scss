@@ -24,7 +24,13 @@
       border: 10px;
 
       .label {
-         text-decoration: underline;
+        text-decoration: underline;
+      }
+    }
+
+    &.active {
+      .label {
+        text-decoration: underline;
       }
     }
 
@@ -43,6 +49,6 @@
   }
 }
 
-.spinner{
+.spinner {
   margin: auto;
 }

@@ -5,6 +5,9 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { CategoriesComponent } from './categories.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatSidenavModule} from "@angular/material/sidenav";
+import {FormsModule} from "@angular/forms";
 
 const routes: Routes = [
   {
@@ -23,6 +26,9 @@ const routes: Routes = [
     PostsListModule,
 
     MatProgressSpinnerModule,
+    MatPaginatorModule,
+    MatSidenavModule,
+    FormsModule,
   ],
   exports: [CategoriesComponent],
 })

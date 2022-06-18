@@ -8,7 +8,7 @@ export class AuthenticationService {
   private currentUserSubject: BehaviorSubject<any>;
   public currentUser: Observable<any>;
 
-  constructor(private apiServie: ApiService) {
+  constructor(private apiService: ApiService) {
     this.currentUserSubject = new BehaviorSubject<any>(
       JSON.parse(localStorage.getItem('currentUser') || "null")
     );
@@ -20,8 +20,8 @@ export class AuthenticationService {
   }
 
   login(body: any): Observable<any> {
-    return this.apiServie
-      .post('/login', { body })
+    return this.apiService
+      .post('/api/users/login', { body })
       .pipe(
         map((user) => {
           localStorage.setItem('currentUser', JSON.stringify(user));

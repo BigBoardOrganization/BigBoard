@@ -15,7 +15,12 @@ const routes: Routes = [
   {
     path: 'admin', component: AdminLayoutComponent, canActivate: [AuthGuard],  children: [
       { path: 'categories', loadChildren: () => import("./pages/admin/categories/categories.module").then( module => module.CategoriesModule) },
+      { path: 'post/:id', loadChildren: () => import("./pages/post/post.module").then( module => module.PostModule) },
+      { path: 'signin', loadChildren: () => import("./pages/login/login.module").then( module => module.LoginModule) },
     ]
+  },
+  {
+    path: 'admin', component: AdminLayoutComponent, canActivate: [AuthGuard],  children: []
   },
   { path: '**', redirectTo: '/' },
 ];

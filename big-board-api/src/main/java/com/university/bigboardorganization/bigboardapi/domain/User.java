@@ -1,16 +1,19 @@
 package com.university.bigboardorganization.bigboardapi.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.university.bigboardorganization.bigboardapi.constant.UserRole;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "users")
+@Builder(toBuilder = true)
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
 
     @Id
@@ -20,7 +23,7 @@ public class User {
     @Column(nullable = false)
     private String email;
 
-    @Column(nullable = false)
+    @Column()
     private String phoneNumber;
 
     @Column(nullable = false)
@@ -31,11 +34,17 @@ public class User {
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
+    @Builder.Default
     private UserRole userRole = UserRole.CUSTOMER;
 
-    private boolean enabled;
+    @Builder.Default
+    private boolean enabled = true;
 
-    @OneToMany(mappedBy = "user")
-    private List<Post> posts;
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @Builder.Default
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @JsonIgnore
+    private List<Post> posts = new ArrayList<>();
 
 }

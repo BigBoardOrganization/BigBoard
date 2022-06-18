@@ -1,3 +1,6 @@
+import { RouterModule } from '@angular/router';
+import { TrimPipe } from './../../pipes/trim.pipe';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatListModule } from '@angular/material/list';
 import { NgModule } from '@angular/core';
@@ -11,20 +14,24 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 @NgModule({
   declarations: [
     PostsListComponent,
+    TrimPipe
   ],
   imports: [
     FormsModule,
+    RouterModule,
     ReactiveFormsModule,
     CommonModule,
     MatProgressSpinnerModule,
     MatListModule,
     MatFormFieldModule,
     MatInputModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    LazyLoadImageModule
   ],
-  exports: [
-    PostsListComponent
-  ]
+    exports: [
+        PostsListComponent,
+        TrimPipe
+    ]
 })
 export class PostsListModule {
 }

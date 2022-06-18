@@ -7,6 +7,7 @@ import { DefaultLayoutModule } from './layouts/default-layout/default-layout.mod
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { AdminLayoutModule } from './layouts/admin-layout/admin-layout.module';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { AdminLayoutModule } from './layouts/admin-layout/admin-layout.module';
     AppRoutingModule,
     DefaultLayoutModule,
     AdminLayoutModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    LazyLoadImageModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -11,6 +11,7 @@
       class="category"
       matRipple
       [matTooltip]="category.description || category.name"
+      [ngClass]="{'active': category.id == activeCategoryId}"
       (click)="loadCategory(category.id)"
     >
       <mat-icon class="icon">{{ category.icon }}</mat-icon>

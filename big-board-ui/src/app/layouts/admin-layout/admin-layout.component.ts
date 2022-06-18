@@ -7,9 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminLayoutComponent implements OnInit {
 
+  pages: string[] = ['Posts', 'Categories']
+
+  selectedPage: string = '';
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  public getSelectedPageData(event:any) {
+    this.selectedPage = event.options[0].value
   }
 
 }

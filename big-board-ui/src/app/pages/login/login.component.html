@@ -1,10 +1,10 @@
 <div class="container">
   <form action="" [formGroup]="form" class="form" (ngSubmit)="login()">
     <mat-form-field floatLabel="auto">
-      <label for="username">Username</label>
-      <input type="text" name="username" matInput formControlName="username" />
-      <mat-error *ngIf="form.get('username')?.invalid"
-        >Username is invalid</mat-error
+      <label for="email">Email</label>
+      <input type="email" name="email" matInput formControlName="email" />
+      <mat-error *ngIf="form.get('email')?.invalid"
+        >Email is invalid</mat-error
       >
     </mat-form-field>
     <mat-form-field floatLabel="auto">

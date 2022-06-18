@@ -13,6 +13,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CategoryServiceImpl implements CategoryService {
 
@@ -62,11 +64,10 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryMapper.categoryToCategoryDto(categoryRepository.save(category));
     }
 
-
     @Override
     public void delete(Long id) {
         Category categoryFromDB = findByIdOrThrow(id);
-        if(categoryFromDB.getPosts().isEmpty()){
+        if (categoryFromDB.getPosts().isEmpty()) {
             categoryRepository.delete(categoryFromDB);
         } else {
             throw new RuntimeException("Category has posts and cannot be deleted!");
@@ -75,6 +76,13 @@ public class CategoryServiceImpl implements CategoryService {
 
     public Category findByIdOrThrow(Long id) {
         return categoryRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Category", id));
+    }
+
+    @Override
+    public List<Long> allCategoryIds() {
+        return categoryRepository.findAll().stream()
+                .map(Category::getId)
+                .toList();
     }
 
 }

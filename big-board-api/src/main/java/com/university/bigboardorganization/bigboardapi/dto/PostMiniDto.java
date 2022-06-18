@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PostDto {
+public class PostMiniDto {
 
     private Long id;
 
@@ -23,11 +23,16 @@ public class PostDto {
 
     private String imageUrl;
 
+    private String color;
+
     @NotNull
     private Long categoryId;
 
     @NotNull
     private Long userId;
+
+    @NotNull
+    private String author;
 
     private String createdDate;
 

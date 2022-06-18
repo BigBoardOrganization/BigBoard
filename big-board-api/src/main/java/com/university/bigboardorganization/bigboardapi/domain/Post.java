@@ -23,6 +23,7 @@ public class Post {
     @NotBlank
     private String title;
 
+    @Column(length = 5000)
     private String description;
 
     private String imageUrl;

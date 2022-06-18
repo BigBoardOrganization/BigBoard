@@ -12,12 +12,13 @@ import com.university.bigboardorganization.bigboardapi.service.CategoryService;
 import com.university.bigboardorganization.bigboardapi.service.PostService;
 import com.university.bigboardorganization.bigboardapi.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -33,26 +34,27 @@ public class PostServiceImpl implements PostService {
         return postRepository.findByOrderByCreatedDateDesc(pageable).map(postMapper::postToPostMiniDto);
     }
 
-    private boolean setDefaultIfNullAndReturnHasTitle(PostFilter postFilter) {
-        boolean hasTitle = !Objects.isNull(postFilter.getTitle()) || postFilter.getTitle().isEmpty();
+    private void setDefaultIfNull(PostFilter postFilter) {
 
-        if (Objects.isNull(postFilter.getCategories()) || postFilter.getCategories().isEmpty()) {
+        if (CollectionUtils.isEmpty(postFilter.getCategories())) {
             postFilter.setCategories(categoryService.allCategoryIds());
         }
 
-        if (Objects.isNull(postFilter.getUsers()) || postFilter.getUsers().isEmpty()) {
+        if (CollectionUtils.isEmpty(postFilter.getUsers())) {
             postFilter.setUsers(userService.allUserIds());
         }
+    }
 
-        return hasTitle;
+    private boolean filterHasTitle(PostFilter postFilter) {
+        return StringUtils.isNotBlank(postFilter.getTitle());
     }
 
     @Override
     public Page<PostMiniDto> findByFilter(PostFilter filter, Pageable pageable) {
         Page<Post> page;
+        setDefaultIfNull(filter);
 
-        // if filter has title
-        if (setDefaultIfNullAndReturnHasTitle(filter)) {
+        if (filterHasTitle(filter)) {
             page = postRepository.findAllByTitleContainsAndCategoryIdInAndUserIdInOrderByCreatedDateDesc(
                     filter.getTitle(),
                     filter.getCategories(),

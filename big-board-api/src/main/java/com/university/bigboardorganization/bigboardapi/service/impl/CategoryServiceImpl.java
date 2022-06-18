@@ -1,6 +1,8 @@
 package com.university.bigboardorganization.bigboardapi.service.impl;
 
+import com.querydsl.core.types.Predicate;
 import com.university.bigboardorganization.bigboardapi.domain.Category;
+import com.university.bigboardorganization.bigboardapi.domain.QCategory;
 import com.university.bigboardorganization.bigboardapi.dto.CategoryCreateRequest;
 import com.university.bigboardorganization.bigboardapi.dto.CategoryDto;
 import com.university.bigboardorganization.bigboardapi.dto.CategoryUpdateRequest;
@@ -8,6 +10,7 @@ import com.university.bigboardorganization.bigboardapi.exception.EntityNotFoundE
 import com.university.bigboardorganization.bigboardapi.mapper.CategoryMapper;
 import com.university.bigboardorganization.bigboardapi.repository.CategoryRepository;
 import com.university.bigboardorganization.bigboardapi.service.CategoryService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -29,8 +32,10 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Page<CategoryDto> findAll(Pageable pageable) {
-        return categoryRepository.findAll(pageable).map((categoryMapper::categoryToCategoryDto));
+    public Page<CategoryDto> findAll(String name, Pageable pageable) {
+        QCategory qCategory = QCategory.category;
+        Predicate predicate = StringUtils.isNotBlank(name) ? qCategory.name.contains(name) : qCategory.id.isNotNull();
+        return categoryRepository.findAll(predicate, pageable).map((categoryMapper::categoryToCategoryDto));
     }
 
     @Override

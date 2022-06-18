@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface CategoryService {
 
-    Page<CategoryDto> findAll(Pageable pageable);
+    Page<CategoryDto> findAll(String name, Pageable pageable);
 
     CategoryDto findById(Long id);
 

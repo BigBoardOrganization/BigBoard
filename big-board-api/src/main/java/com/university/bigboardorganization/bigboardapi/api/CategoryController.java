@@ -23,7 +23,7 @@ public class CategoryController {
     }
 
     @GetMapping
-    public Page<CategoryDto> findAll(@RequestParam String name, Pageable pageable) {
+    public Page<CategoryDto> findAll(@RequestParam(required = false) String name, Pageable pageable) {
         return categoryService.findAll(name, pageable);
     }
 

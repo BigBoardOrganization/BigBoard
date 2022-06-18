@@ -23,7 +23,7 @@ public class PostController {
         return postService.findAll(pageable);
     }
 
-    @GetMapping("filter")
+    @PostMapping("filter")
     public Page<PostMiniDto> filter(
             Pageable pageable,
             @RequestBody PostFilter postFilter) {

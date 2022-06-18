@@ -1,28 +1,38 @@
-<mat-drawer-container class="container">
-
-  <mat-drawer mode="side" opened class="sidebar">
-    <mat-selection-list [multiple]="false" class="types-list">
-      <mat-list-option *ngFor="let type of types" [value]="types" class="type">
-        {{type}}
-      </mat-list-option>
-    </mat-selection-list>
-  </mat-drawer>
-
-  <mat-drawer-content class="table-container">
+<mat-drawer-content>
+  <input type="text" class="search"
+         placeholder="What are you looking for?"
+         [(ngModel)]="title"
+         (keyup.enter)="getPostsByTitle()"/>
+  <div class="table-container">
     <table>
       <thead>
         <tr>
-          <td>Post</td>
+          <td>Posts</td>
           <td>Actions</td>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>Prodam navoz</td>
-          <td><button>BUY</button></td>
+        <tr *ngFor="let post of postsData?.content">
+          <td>{{post.title | trim: 80}}</td>
+          <td class="buttons">
+            <button class="button delete-button">Delete</button>
+            <button class="button edit-button">Edit</button>
+          </td>
         </tr>
       </tbody>
     </table>
-  </mat-drawer-content>
-
-</mat-drawer-container>
+  </div>
+  <div class="create-button-container">
+    <button class="button create-button">Create new post</button>
+  </div>
+  <div class="pagination">
+    <mat-paginator
+      [length]="postsData.totalElements"
+      [pageSize]="postsData.pageable?.pageSize"
+      [pageSizeOptions]="[postsData.pageable?.pageSize]"
+      (page)="pageChangeInput($event)"
+      aria-label="Select page"
+    >
+    </mat-paginator>
+  </div>
+</mat-drawer-content>

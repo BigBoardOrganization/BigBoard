@@ -21,7 +21,7 @@ import { TrimPipe } from './pipes/trim.pipe';
     AppRoutingModule,
     DefaultLayoutModule,
     AdminLayoutModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
     BrowserAnimationsModule,
     LazyLoadImageModule
   ],

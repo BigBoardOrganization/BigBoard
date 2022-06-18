@@ -5,6 +5,9 @@ import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatListModule} from "@angular/material/list";
 import {RouterModule, Routes} from "@angular/router";
 import {MatTableModule} from "@angular/material/table";
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {PostsListModule} from "../../../components/posts-list/posts-list.module";
+import {FormsModule} from "@angular/forms";
 
 const routes: Routes = [
   {
@@ -26,6 +29,9 @@ const routes: Routes = [
     MatListModule,
     RouterModule.forChild(routes),
     MatTableModule,
+    MatPaginatorModule,
+    PostsListModule,
+    FormsModule,
   ]
 })
 export class PostsModule { }

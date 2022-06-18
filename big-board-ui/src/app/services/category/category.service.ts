@@ -15,4 +15,8 @@ export class CategoryService {
     return this.api.get(`/api/category`, {});
   }
 
+  public getPageOfCategories(params: any): Observable<any> {
+    return this.api.get(`/api/category`, {params});
+  }
+
 }

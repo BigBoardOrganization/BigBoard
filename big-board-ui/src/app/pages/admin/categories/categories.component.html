@@ -1,0 +1,35 @@
+<mat-drawer-content>
+  <input type="text" class="search"
+         placeholder="What are you looking for?"
+         [(ngModel)]="name"
+         (keyup.enter)="getCategoriesByName()"/>
+  <div class="table-container">
+    <table>
+      <thead>
+      <tr>
+        <td>Categories</td>
+        <td>Actions</td>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let category of categoriesData?.content">
+        <td>{{category.name | trim: 80}}</td>
+        <td class="buttons">
+          <button class="button open-page-button" (click)="loadCategory(category.id)">Open category page</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="pagination">
+    <mat-paginator
+      [length]="categoriesData.totalElements"
+      [pageSize]="categoriesData.pageable?.pageSize"
+      [pageSizeOptions]="[categoriesData.pageable?.pageSize]"
+      (page)="pageChangeInput($event)"
+      aria-label="Select page"
+    >
+    </mat-paginator>
+  </div>
+</mat-drawer-content>
+

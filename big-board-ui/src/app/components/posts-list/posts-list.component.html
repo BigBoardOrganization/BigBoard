@@ -30,7 +30,7 @@
   </mat-list>
 
   <mat-paginator
-    [length]="data.totalPages"
+    [length]="data.totalElements"
     [pageSize]="data.pageable?.pageSize"
     [pageSizeOptions]="[data.pageable?.pageSize]"
     (page)="pageChangeInput($event)"

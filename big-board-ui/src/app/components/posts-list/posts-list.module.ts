@@ -28,9 +28,10 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatPaginatorModule,
     LazyLoadImageModule
   ],
-  exports: [
-    PostsListComponent
-  ]
+    exports: [
+        PostsListComponent,
+        TrimPipe
+    ]
 })
 export class PostsListModule {
 }

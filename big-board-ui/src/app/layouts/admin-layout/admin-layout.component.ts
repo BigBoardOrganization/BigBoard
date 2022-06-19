@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
   selector: 'app-admin-layout',
@@ -11,13 +12,34 @@ export class AdminLayoutComponent implements OnInit {
 
   selectedPage: string = '';
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+  ) {
   }
 
-  public getSelectedPageData(event:any) {
+  ngOnInit(): void {
+    this.checkPageSelected()
+  }
+
+  public getSelectedPageData(event: any) {
     this.selectedPage = event.options[0].value
+    this.routeToSelectedPage()
+  }
+
+  private routeToSelectedPage() {
+    console.log(this.selectedPage)
+    this.router.navigate([this.selectedPage.toLowerCase()], {relativeTo: this.route})
+  }
+
+  private checkPageSelected() {
+    let url: string = this.router.url;
+    let afterAdmin = url.substring(url.lastIndexOf("admin") + 5)
+    if (afterAdmin.startsWith("/posts")) {
+      this.selectedPage = "Posts"
+    } else if (afterAdmin.startsWith("/categories")) {
+      this.selectedPage = "Categories"
+    }
   }
 
 }

@@ -1,33 +1,33 @@
-<mat-drawer-content>
-  <div class="top-wrapper">
+<mat-drawer-content class="posts-component">
+  <div class="posts-top-controls-container">
     <input type="text" class="search"
-          placeholder="What are you looking for?"
-          [(ngModel)]="title"
-          (keyup.enter)="getPostsByTitle()"/>
-
-    <button class="button create-button">Create new post</button>
+           placeholder="What are you looking for?"
+           [(ngModel)]="title"
+           (keyup.enter)="getPostsByTitle()"/>
+    <div class="create-button-container">
+      <button class="button create-button" (click)="onCreateClick()">Create new post</button>
+    </div>
   </div>
-
   <div class="table-container">
     <table>
       <thead>
-        <tr>
-          <td>Posts</td>
-          <td>Actions</td>
-        </tr>
+      <tr>
+        <td>Posts</td>
+        <td>Actions</td>
+      </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let post of postsData?.content">
-          <td>{{post.title | trim: 80}}</td>
-          <td class="buttons">
-            <button class="button delete-button">Delete</button>
-            <button class="button edit-button">Edit</button>
-          </td>
-        </tr>
+      <tr *ngFor="let post of postsData?.content">
+        <td>{{post.title | trim: 80}}</td>
+        <td class="buttons">
+          <button class="button edit-button" (click)="onEditClick(post.id)">Edit</button>
+          <button class="button delete-button" (click)="onDeleteClick(post.id)">Delete</button>
+        </td>
+      </tr>
 
-        <tr *ngIf="!postsData || (postsData.content && !postsData.content.length)">
-          <td><p>No posts found.</p></td>
-        </tr>
+      <tr *ngIf="!postsData || (postsData.content && !postsData.content.length)">
+        <td><p>No posts found.</p></td>
+      </tr>
       </tbody>
     </table>
   </div>

@@ -1,5 +1,5 @@
 import { RouterModule } from '@angular/router';
-import { TrimPipe } from './../../pipes/trim.pipe';
+import { TrimPipe } from '../../pipes/trim.pipe';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatListModule } from '@angular/material/list';

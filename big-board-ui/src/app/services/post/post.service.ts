@@ -6,17 +6,33 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class PostService {
-  constructor(private api: ApiService) {}
+
+  private apiPath = '/api/posts';
+
+  constructor(private api: ApiService) {
+  }
 
   public getAllPosts(params: any): Observable<any> {
-    return this.api.get(`/api/posts`, { params });
+    return this.api.get(this.apiPath, {params});
   }
 
   public getFilteredPosts(pageable:any, body: any): Observable<any> {
-    return this.api.post(`/api/posts/filter?page=${pageable.page}&size=${pageable.size}`, { body });
+    return this.api.post(`${this.apiPath}/filter?page=${pageable.page}&size=${pageable.size}`, { body });
   }
 
   public getPost(id: number): Observable<any> {
-    return this.api.get(`/api/posts/${id}`, {});
+    return this.api.get(`${this.apiPath}/${id}`, {});
+  }
+
+  public createPost(post: any): Observable<any> {
+    return this.api.post(this.apiPath, {body: post});
+  }
+
+  public updatePost(id: number, post: any): Observable<any> {
+    return this.api.put(`${this.apiPath}/${id}`, {body: post});
+  }
+
+  public deletePost(id: number): Observable<any> {
+    return this.api.delete(`${this.apiPath}/${id}`, {});
   }
 }

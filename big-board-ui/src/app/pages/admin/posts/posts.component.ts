@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import {PostService} from "../../../services/post/post.service";
-import {PageEvent} from "@angular/material/paginator";
-import {AuthenticationService} from "../../../services/authentication/authentication.service";
+import { AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { PostService } from "../../../services/post/post.service";
+import { PageEvent } from "@angular/material/paginator";
+import { AuthenticationService } from "../../../services/authentication/authentication.service";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
   selector: 'app-posts',
   templateUrl: './posts.component.html',
   styleUrls: ['./posts.component.scss']
 })
-export class PostsComponent implements OnInit {
+export class PostsComponent implements OnInit, AfterViewInit, AfterViewChecked {
 
   private userId: number | undefined;
 
@@ -26,14 +27,26 @@ export class PostsComponent implements OnInit {
   title: string = ""
 
   constructor(private postService: PostService,
-              private authService: AuthenticationService) { }
+              private authService: AuthenticationService,
+              private changeDetector: ChangeDetectorRef,
+              private router: Router,
+              private route: ActivatedRoute) {
+  }
 
   ngOnInit(): void {
-    this.authService.currentUser.subscribe( (value) => {
+    this.authService.currentUser.subscribe((value) => {
       this.userId = value.id
       this.userRole = value.userRole
     })
     this.getPosts()
+  }
+
+  ngAfterViewInit(): void {
+    this.changeDetector.detectChanges();
+  }
+
+  ngAfterViewChecked(): void {
+    this.changeDetector.detectChanges();
   }
 
   public getPosts(): void {
@@ -54,7 +67,7 @@ export class PostsComponent implements OnInit {
     this.getPostsByRequestBody(requestBody);
   }
 
-  public pageChangeInput(event: PageEvent): void{
+  public pageChangeInput(event: PageEvent): void {
     this.pageable.page = event.pageIndex;
     this.getPosts();
   }
@@ -77,8 +90,23 @@ export class PostsComponent implements OnInit {
         this.isLoading = false;
         this.postsData = v || {};
       },
-      error: (e) => (this.isLoading = false),
+      error: () => (this.isLoading = false),
     });
   }
 
+  onCreateClick() {
+    this.router.navigate(['create'], {relativeTo: this.route})
+  }
+
+  onEditClick(id: number) {
+    this.router.navigate(['edit', id], {relativeTo: this.route})
+  }
+
+  onDeleteClick(id: number) {
+    this.postService.deletePost(id).subscribe({
+      next: () => {
+        this.getPosts()
+      }
+    });
+  }
 }

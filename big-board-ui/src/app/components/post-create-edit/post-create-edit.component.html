@@ -1,0 +1,67 @@
+<form [formGroup]="postForm">
+  <div class="create-header">
+    <div class="mat-h1 title">{{title}}</div>
+    <div class="controls">
+      <button class="button create-button" (click)="onCreateClick()"
+              [disabled]="postForm.invalid">
+        {{ controlButton }}
+      </button>
+      <button class="button cancel-button" (click)="onCancelClick()">Cancel</button>
+    </div>
+  </div>
+  <div class="inputs-container">
+    <div class="input-control">
+      <div class="data-row">
+        <label class="data-label">
+          Title
+        </label>
+        <input class="data-enter data-input" name="title"
+               [ngClass]="getErroredFieldClass(titleControl)"
+               formControlName="title" placeholder="Title" required>
+      </div>
+      <div *ngIf="titleControl.touched && titleControl.hasError('whitespace')" class="error-message">
+        The field 'Title' is required.
+      </div>
+    </div>
+    <div class="input-control">
+      <div class="data-row">
+        <label class="data-label">
+          Description
+        </label>
+        <textarea class="data-enter data-input description" name="description"
+                  [ngClass]="getErroredFieldClass(descriptionControl)"
+                  formControlName="description" placeholder="Description">
+        </textarea>
+      </div>
+    </div>
+    <div class="input-control">
+      <div class="data-row">
+        <label class="data-label">
+          Image URL
+        </label>
+        <textarea class="data-enter data-input" name="imageUrl"
+                  [ngClass]="getErroredFieldClass(imageUrlControl)"
+                  formControlName="imageUrl" placeholder="URL to your image">
+        </textarea>
+      </div>
+    </div>
+    <div class="input-control">
+      <div class="data-row">
+        <label class="data-label">
+          Category
+        </label>
+        <select class="data-enter data-input" name="categoryId"
+                [ngClass]="getErroredFieldClass(categoryControl)"
+                formControlName="categoryId" required>
+          <option *ngFor="let cat of categories" [value]="cat.id">
+            {{cat.name}}
+          </option>
+        </select>
+      </div>
+      <div *ngIf="categoryControl.touched && categoryControl.hasError('required')" class="error-message">
+        The field 'Category' is required.
+      </div>
+    </div>
+  </div>
+</form>
+

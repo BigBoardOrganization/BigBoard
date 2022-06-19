@@ -1,14 +1,14 @@
-import {Component, OnInit} from '@angular/core';
-import {PageEvent} from "@angular/material/paginator";
-import {CategoryService} from "../../../services/category/category.service";
-import {Router} from "@angular/router";
+import { AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { PageEvent } from "@angular/material/paginator";
+import { CategoryService } from "../../../services/category/category.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-categories',
   templateUrl: './categories.component.html',
   styleUrls: ['./categories.component.scss']
 })
-export class CategoriesComponent implements OnInit {
+export class CategoriesComponent implements OnInit, AfterViewInit, AfterViewChecked {
 
   public categoriesData: any = {pageable: {}};
 
@@ -21,10 +21,21 @@ export class CategoriesComponent implements OnInit {
 
   public name: string = '';
 
-  constructor(private categoryService: CategoryService, private router: Router,) { }
+  constructor(private categoryService: CategoryService,
+              private router: Router,
+              private changeDetector: ChangeDetectorRef,) {
+  }
 
   ngOnInit(): void {
     this.getCategories();
+  }
+
+  ngAfterViewInit(): void {
+    this.changeDetector.detectChanges();
+  }
+
+  ngAfterViewChecked(): void {
+    this.changeDetector.detectChanges();
   }
 
   public getCategories(): void {
@@ -34,7 +45,7 @@ export class CategoriesComponent implements OnInit {
         this.isLoading = false;
         this.categoriesData = v || {};
       },
-      error: (e) => (this.isLoading = false),
+      error: () => (this.isLoading = false),
     });
 
   }
@@ -49,10 +60,9 @@ export class CategoriesComponent implements OnInit {
   }
 
   public loadCategory(id: number): void {
-    if(id) {
+    if (id) {
       this.router.navigate(['/category/' + id]);
-    }
-    else {
+    } else {
       this.router.navigate(['/'])
     }
   }

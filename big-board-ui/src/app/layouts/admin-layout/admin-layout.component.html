@@ -1,21 +1,21 @@
 <main class="main">
   <app-header></app-header>
   <div class="content">
-    <router-outlet></router-outlet>
-
-    <mat-drawer-container class="container" [ngClass]="{'container-empty': !selectedPage}">
+    <mat-drawer-container class="container">
       <mat-drawer mode="side" opened class="sidebar">
-        <mat-selection-list [multiple]="false" class="types-list" (selectionChange)="getSelectedPageData($event)">
-          <mat-list-option *ngFor="let page of pages" [value]="page" class="type">
-            {{page}}
-          </mat-list-option>
-        </mat-selection-list>
+          <mat-selection-list [multiple]="false" class="types-list"
+                              (selectionChange)="getSelectedPageData($event)">
+            <mat-list-option *ngFor="let page of pages" [value]="page" class="type">
+              {{page}}
+            </mat-list-option>
+          </mat-selection-list>
       </mat-drawer>
 
-      <app-posts *ngIf="selectedPage === 'Posts'"></app-posts>
-      <app-categories *ngIf="selectedPage === 'Categories'"></app-categories>
+      <router-outlet></router-outlet>
       <div *ngIf="!selectedPage" class="data-image">
         <img src="https://cdn.dribbble.com/users/2394319/screenshots/4773525/media/3abebd7f14032c54245cb54cf48d17a3.png" alt="data">
+        <img src="https://cdn.dribbble.com/users/2394319/screenshots/4773525/media/3abebd7f14032c54245cb54cf48d17a3.png"
+             alt="data">
       </div>
     </mat-drawer-container>
 

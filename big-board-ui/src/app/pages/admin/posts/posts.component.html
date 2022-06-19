@@ -1,0 +1,44 @@
+<mat-drawer-content>
+  <div class="top-wrapper">
+    <input type="text" class="search"
+          placeholder="What are you looking for?"
+          [(ngModel)]="title"
+          (keyup.enter)="getPostsByTitle()"/>
+
+    <button class="button create-button">Create new post</button>
+  </div>
+
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <td>Posts</td>
+          <td>Actions</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let post of postsData?.content">
+          <td>{{post.title | trim: 80}}</td>
+          <td class="buttons">
+            <button class="button delete-button">Delete</button>
+            <button class="button edit-button">Edit</button>
+          </td>
+        </tr>
+
+        <tr *ngIf="!postsData || (postsData.content && !postsData.content.length)">
+          <td><p>No posts found.</p></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="pagination">
+    <mat-paginator
+      [length]="postsData.totalElements"
+      [pageSize]="postsData.pageable?.pageSize"
+      [pageSizeOptions]="[postsData.pageable?.pageSize]"
+      (page)="pageChangeInput($event)"
+      aria-label="Select page"
+    >
+    </mat-paginator>
+  </div>
+</mat-drawer-content>

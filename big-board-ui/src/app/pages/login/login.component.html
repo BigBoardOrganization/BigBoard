@@ -1,0 +1,39 @@
+<div class="container">
+  <form action="" [formGroup]="form" class="form" (ngSubmit)="login()">
+    <mat-form-field floatLabel="auto">
+      <label for="email">Email</label>
+      <input type="email" name="email" matInput formControlName="email" />
+      <mat-error *ngIf="form.get('email')?.invalid"
+        >Email is invalid</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field floatLabel="auto">
+      <label for="password">Password</label>
+      <input
+        id="password"
+        name="password"
+        type="password"
+        matInput
+        formControlName="password"
+      />
+      <mat-error *ngIf="form.get('password')?.invalid"
+        >Password is invalid</mat-error
+      >
+    </mat-form-field>
+    <mat-error *ngIf="beError">Invalid credentials</mat-error>
+    <button
+      [disabled]="form.invalid || isLoading"
+      mat-raised-button
+      color="primary"
+      type="submit"
+    >
+      <mat-spinner
+        class="spinner"
+        *ngIf="isLoading"
+        [diameter]="20"
+        [strokeWidth]="2"
+      ></mat-spinner>
+      Login
+    </button>
+  </form>
+</div>

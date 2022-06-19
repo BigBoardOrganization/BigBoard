@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 
@@ -11,11 +12,16 @@ export class PostsListComponent implements OnInit {
 
   @Input('isLoading') isLoading: boolean = true;
 
+  @Input('searchValue') searchValue: string = "";
+
   @Output('search') search: EventEmitter<string> = new EventEmitter<string>();
 
-  @Output('pageChange') pageChange: EventEmitter<number> = new EventEmitter<number>();
+  @Output('pageChange') pageChange: EventEmitter<number> =
+    new EventEmitter<number>();
 
-  constructor() {}
+  constructor(
+    private router: Router
+  ) {}
 
   ngOnInit(): void {}
 
@@ -23,7 +29,7 @@ export class PostsListComponent implements OnInit {
     this.search.emit(event.target.value);
   }
 
-  public pageChangeInput(event: PageEvent): void{
+  public pageChangeInput(event: PageEvent): void {
     this.pageChange.emit(event.pageIndex);
   }
 }

@@ -1,3 +1,5 @@
+import { MatButtonModule } from '@angular/material/button';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header.component';
@@ -10,8 +12,10 @@ import { MatMenuModule } from '@angular/material/menu';
   ],
   imports: [
     CommonModule,
+    MatSnackBarModule,
     MatIconModule,
     MatMenuModule,
+    MatButtonModule
   ],
   exports: [
     HeaderComponent

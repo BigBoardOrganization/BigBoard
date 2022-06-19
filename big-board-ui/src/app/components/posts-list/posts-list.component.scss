@@ -25,12 +25,12 @@ $black: #212121;
     &:after {
       content: "";
       flex: 1 1;
+      min-width: 325px;
     }
 
     .item {
       flex: 1 1;
       min-width: 325px;
-      max-width: 325px;
       border: 1px solid #efefef;
       background-color: #ffffff;
       transition: .2s linear;

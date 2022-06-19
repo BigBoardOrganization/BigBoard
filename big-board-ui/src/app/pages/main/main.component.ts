@@ -13,6 +13,8 @@ export class MainComponent implements OnInit {
 
   public postsData: any = {};
 
+  public nameSearch: string = "";
+
   public isLoading: boolean = true;
 
   private pageable: any = {
@@ -28,14 +30,23 @@ export class MainComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((res: any) => {
       this.activeCategoryId = res.id;
+      this.nameSearch = "";
 
       this.getPosts();
     });
   }
 
-  public getPosts(): void {
-    this.isLoading = true;
-    this.postService.getAllPosts( this.pageable ).subscribe({
+  private getPosts() {
+    const requestBody: any = {
+      title: this.nameSearch,
+      categories: []
+    }
+
+    if(this.activeCategoryId) {
+      requestBody.categories = [this.activeCategoryId]
+    }
+
+    this.postService.getFilteredPosts(this.pageable, requestBody).subscribe({
       next: (v) => {
         this.isLoading = false;
         this.postsData = v || {};
@@ -45,7 +56,7 @@ export class MainComponent implements OnInit {
   }
 
   public search(value: string): void {
-    // this.pageable = page;
+    this.nameSearch = value.trim();
     this.getPosts();
   }
 

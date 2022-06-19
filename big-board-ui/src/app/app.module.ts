@@ -6,8 +6,8 @@ import { AppComponent } from './app.component';
 import { DefaultLayoutModule } from './layouts/default-layout/default-layout.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
+import { AdminLayoutModule } from './layouts/admin-layout/admin-layout.module';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
-import { TrimPipe } from './pipes/trim.pipe';
 
 
 @NgModule({
@@ -19,6 +19,7 @@ import { TrimPipe } from './pipes/trim.pipe';
     HttpClientModule,
     AppRoutingModule,
     DefaultLayoutModule,
+    AdminLayoutModule,
     BrowserAnimationsModule,
     LazyLoadImageModule
   ],

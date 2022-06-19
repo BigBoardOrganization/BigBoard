@@ -19,11 +19,7 @@
 
     <div class="items" [ngClass]="{'items-loading': isLoading}">
       <div *ngFor="let post of data.content" class="item" [routerLink]="'/post/' + post.id">
-        <div class="image" [lazyLoad]="post.imageUrl" *ngIf="!!post.imageUrl; else defaultImage"></div>
-        <ng-template #defaultImage>
-          <div class="image" [lazyLoad]="defaultImageUrl">
-          </div>
-        </ng-template>
+        <div class="image" [lazyLoad]="post.imageUrl" [defaultImage]="defaultImageUrl"></div>
         <div class="content">
           <h3 class="title">{{ post.title | trim:50 }}</h3>
           <p class="text">{{ post.description | trim:90 }}</p>

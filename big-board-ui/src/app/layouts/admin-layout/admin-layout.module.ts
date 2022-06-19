@@ -29,7 +29,7 @@ const routes: Routes = [
     MatSidenavModule,
     MatListModule,
     PostsModule,
-    CategoriesModule
+    CategoriesModule,
   ],
   exports: [
     AdminLayoutComponent

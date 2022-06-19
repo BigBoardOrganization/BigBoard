@@ -28,6 +28,7 @@ export class AdminLayoutComponent implements OnInit {
   }
 
   private routeToSelectedPage() {
+    console.log(this.selectedPage)
     this.router.navigate([this.selectedPage.toLowerCase()], {relativeTo: this.route})
   }
 

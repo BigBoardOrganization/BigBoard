@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import {PostService} from "../../../services/post/post.service";
-import {PageEvent} from "@angular/material/paginator";
-import {AuthenticationService} from "../../../services/authentication/authentication.service";
+import { AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { PostService } from "../../../services/post/post.service";
+import { PageEvent } from "@angular/material/paginator";
+import { AuthenticationService } from "../../../services/authentication/authentication.service";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
   selector: 'app-posts',
   templateUrl: './posts.component.html',
   styleUrls: ['./posts.component.css']
 })
-export class PostsComponent implements OnInit {
+export class PostsComponent implements OnInit, AfterViewInit, AfterViewChecked {
 
   private userId: number | undefined;
 
@@ -26,26 +27,38 @@ export class PostsComponent implements OnInit {
   title: string = ""
 
   constructor(private postService: PostService,
-              private authService: AuthenticationService) { }
+              private authService: AuthenticationService,
+              private changeDetector: ChangeDetectorRef,
+              private router: Router,
+              private route: ActivatedRoute) {
+  }
 
   ngOnInit(): void {
-    this.authService.currentUser.subscribe( (value) => {
+    this.authService.currentUser.subscribe((value) => {
       this.userId = value.id
       this.userRole = value.userRole
     })
     this.getPosts()
   }
 
+  ngAfterViewInit(): void {
+    this.changeDetector.detectChanges();
+  }
+
+  ngAfterViewChecked(): void {
+    this.changeDetector.detectChanges();
+  }
+
   public getPosts(): void {
     //TODO Refactor
     if (this.userRole === "ADMIN") {
       this.isLoading = true;
-      this.postService.getAllPosts( this.pageable ).subscribe({
+      this.postService.getAllPosts(this.pageable).subscribe({
         next: (v) => {
           this.isLoading = false;
           this.postsData = v || {};
         },
-        error: (e) => (this.isLoading = false),
+        error: () => (this.isLoading = false),
       });
     } else if (this.userRole === "CUSTOMER") {
       this.isLoading = true;
@@ -59,35 +72,34 @@ export class PostsComponent implements OnInit {
           this.isLoading = false;
           this.postsData = v || {};
         },
-        error: (e) => (this.isLoading = false),
+        error: () => (this.isLoading = false),
       });
     }
-/*
-    let requestBody = {};
-    if (this.userRole === "ADMIN") {
-      requestBody = {
-        page: this.pageable.page,
-        size: this.pageable.size
-      }
-    } else if (this.userRole === "CUSTOMER") {
-      requestBody = {
-        users: [this.userId],
-        page: this.pageable.page,
-        size: this.pageable.size
-      }
-    }
+    /*
+        let requestBody = {};
+        if (this.userRole === "ADMIN") {
+          requestBody = {
+            page: this.pageable.page,
+            size: this.pageable.size
+          }
+        } else if (this.userRole === "CUSTOMER") {
+          requestBody = {
+            users: [this.userId],
+            page: this.pageable.page,
+            size: this.pageable.size
+          }
+        }
 
-    this.getPostsByRequestBody(requestBody);
- */
+        this.getPostsByRequestBody(requestBody);
+     */
   }
 
-  public pageChangeInput(event: PageEvent): void{
+  public pageChangeInput(event: PageEvent): void {
     this.pageable.page = event.pageIndex;
     this.getPosts();
   }
 
   public getPostsByTitle() {
-    console.log(this.title)
     let requestBody = {};
     if (this.userRole === "ADMIN") {
       requestBody = {
@@ -106,14 +118,29 @@ export class PostsComponent implements OnInit {
     this.getPostsByRequestBody(requestBody);
   }
 
-  private getPostsByRequestBody(requestBody:{}) {
+  private getPostsByRequestBody(requestBody: {}) {
     this.postService.getFilteredPosts(requestBody).subscribe({
       next: (v) => {
         this.isLoading = false;
         this.postsData = v || {};
       },
-      error: (e) => (this.isLoading = false),
+      error: () => (this.isLoading = false),
     });
   }
 
+  onCreateClick() {
+    this.router.navigate(['create'], {relativeTo: this.route})
+  }
+
+  onEditClick(id: number) {
+    this.router.navigate(['edit', id], {relativeTo: this.route})
+  }
+
+  onDeleteClick(id: number) {
+    this.postService.deletePost(id).subscribe({
+      next: () => {
+        this.getPosts()
+      }
+    });
+  }
 }

@@ -8,12 +8,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { AdminLayoutModule } from './layouts/admin-layout/admin-layout.module';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
-import { TrimPipe } from './pipes/trim.pipe';
+import { PostCreateEditComponent } from './components/post-create-edit/post-create-edit.component';
+import { MatSidenavModule } from "@angular/material/sidenav";
+import { ReactiveFormsModule } from "@angular/forms";
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PostCreateEditComponent
   ],
   imports: [
     BrowserModule,
@@ -23,9 +26,15 @@ import { TrimPipe } from './pipes/trim.pipe';
     AdminLayoutModule,
     BrowserAnimationsModule,
     BrowserAnimationsModule,
-    LazyLoadImageModule
+    LazyLoadImageModule,
+    MatSidenavModule,
+    ReactiveFormsModule
   ],
   providers: [],
+  exports: [
+    PostCreateEditComponent
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

@@ -1,0 +1,149 @@
+.create-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title {
+  color: rgb(29, 29, 94);
+  font-weight: bolder;
+  font-size: 24px;
+}
+
+form {
+  font-size: 19px;
+  padding: 18px;
+}
+
+.controls {
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+}
+
+.inputs-container {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.button {
+  display: inline-block;
+  height: 45px;
+  width: 100px;
+  padding: 0.3em 1.2em;
+  margin: 0 0.5em 0.1em 0;
+  border: 0.16em solid rgba(255, 255, 255, 0);
+  border-radius: 2em;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
+  text-align: center;
+  font-weight: bold;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.create-button {
+  background-color: rgb(29, 29, 94);
+  color: white;
+}
+
+.create-button:disabled {
+  background-color: rgb(64, 64, 80);
+  cursor: default;
+  color: white;
+}
+
+.create-button:hover:enabled {
+  background-color: rgb(121, 121, 206);
+  color: #08083a;
+}
+
+.cancel-button {
+  background-color: rgb(63, 63, 239);
+  color: white;
+}
+
+.cancel-button:hover {
+  background-color: rgb(131, 131, 255);
+  color: #08083a;
+}
+
+
+.required-name {
+  color: #e65800;
+}
+
+.input-control {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.data-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.data-label {
+  display: inline-block;
+  float: left;
+  text-align: right;
+  padding-right: 15px;
+  width: 130px;
+  margin-top: 5px;
+}
+
+.data-enter {
+  border: 2px solid rgba(105, 105, 105, 0.81);
+  background: #ffffff;
+  color: #464646;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 20px 10px;
+  border-radius: 2em;
+}
+
+.data-enter:focus {
+  outline: none;
+}
+
+::placeholder {
+  font-weight: normal;
+  color: rgba(143, 143, 143, 0.59);
+}
+
+.data-input {
+  height: 40px;
+  width: 500px;
+}
+
+textarea.data-input {
+  height: 90px;
+  width: 500px;
+  resize: vertical;
+  min-height: 90px;
+}
+
+select.data-input {
+  padding: 0 0 0 10px;
+}
+
+.data-input-invalid {
+  border: 2px solid rgb(222, 86, 86);
+  background: rgba(218, 126, 126, 0.25);
+  border-radius: 8px;
+}
+
+.error-message {
+  display: flex;
+  height: 20px;
+  margin-left: 145px;
+  padding-top: 3px;
+
+  color: rgb(222, 86, 86);
+  font-size: 16px;
+  font-weight: 500;
+}

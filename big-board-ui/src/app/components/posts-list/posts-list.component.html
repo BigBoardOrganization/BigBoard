@@ -1,7 +1,7 @@
 <div class="posts-wrapper">
   <form action="">
     <mat-form-field class="search" appearance="outline">
-      <input matInput placeholder="Search ..." (change)="searchInput($event)" />
+      <input matInput placeholder="Search ..." (change)="searchInput($event)"/>
     </mat-form-field>
   </form>
 
@@ -19,7 +19,11 @@
 
     <div class="items" [ngClass]="{'items-loading': isLoading}">
       <div *ngFor="let post of data.content" class="item" [routerLink]="'/post/' + post.id">
-        <div class="image" [lazyLoad]="post.imageUrl" ></div>
+        <div class="image" [lazyLoad]="post.imageUrl" *ngIf="!!post.imageUrl; else defaultImage"></div>
+        <ng-template #defaultImage>
+          <div class="image" [lazyLoad]="defaultImageUrl">
+          </div>
+        </ng-template>
         <div class="content">
           <h3 class="title">{{ post.title | trim:50 }}</h3>
           <p class="text">{{ post.description | trim:90 }}</p>

@@ -4,6 +4,7 @@
     <app-posts-list
       [data]="postsData"
       [isLoading]="isLoading"
+      [searchValue]="nameSearch"
       (search)="search($event)"
       (pageChange)="pageChange($event)"
     ></app-posts-list>

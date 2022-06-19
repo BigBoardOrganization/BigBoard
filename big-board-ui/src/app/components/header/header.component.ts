@@ -1,3 +1,5 @@
+import { Observable } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
@@ -10,8 +12,11 @@ import { AuthenticationService } from 'src/app/services/authentication/authentic
 export class HeaderComponent implements OnInit {
   public options: any[] = [];
 
+  public $currentUser: Observable<any> = this.auth.currentUser;
+
   constructor(
     private router: Router,
+    private snackBar: MatSnackBar,
     private auth: AuthenticationService
   ) {}
 
@@ -24,28 +29,19 @@ export class HeaderComponent implements OnInit {
       {
         title: 'Open Admin',
         icon: 'developer_board',
-        canShow: () => this.auth.currentUserValue,
         action: () => this.router.navigate(['/admin']),
       },
       {
         title: 'Visit Profile',
         icon: 'person',
-        canShow: () => this.auth.currentUserValue,
         action: () => {},
-      },
-      {
-        title: 'Login',
-        icon: 'last_page',
-        canShow: () => !this.auth.currentUserValue,
-        action: () => this.router.navigate(['/signin']),
       },
       {
         title: 'Logout',
         icon: 'logout',
-        canShow: () => this.auth.currentUserValue,
         action: () => {
-          this.auth.logout();
-          this.openMain()
+          this.logout();
+          this.openMain();
         }
       }
     ];
@@ -53,5 +49,17 @@ export class HeaderComponent implements OnInit {
 
   public openMain(): void {
     this.router.navigate(['/']);
+  }
+
+  public logout(): void {
+    this.auth.logout();
+
+    this.snackBar.open('You have successfully logged out!', 'Ok', {
+      duration: 5000,
+    });
+  }
+
+  public goToLogin(): void {
+    this.router.navigate(['/signin'])
   }
 }

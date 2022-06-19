@@ -16,8 +16,8 @@ export class PostService {
     return this.api.get(this.apiPath, {params});
   }
 
-  public getFilteredPosts(body: any): Observable<any> {
-    return this.api.get(`${this.apiPath}/filter`, body);
+  public getFilteredPosts(pageable:any, body: any): Observable<any> {
+    return this.api.post(`${this.apiPath}/filter?page=${pageable.page}&size=${pageable.size}`, { body });
   }
 
   public getPost(id: number): Observable<any> {

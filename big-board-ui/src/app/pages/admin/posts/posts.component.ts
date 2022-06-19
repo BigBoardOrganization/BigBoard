@@ -7,7 +7,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 @Component({
   selector: 'app-posts',
   templateUrl: './posts.component.html',
-  styleUrls: ['./posts.component.css']
+  styleUrls: ['./posts.component.scss']
 })
 export class PostsComponent implements OnInit, AfterViewInit, AfterViewChecked {
 
@@ -50,48 +50,21 @@ export class PostsComponent implements OnInit, AfterViewInit, AfterViewChecked {
   }
 
   public getPosts(): void {
-    //TODO Refactor
+    let requestBody = {};
     if (this.userRole === "ADMIN") {
-      this.isLoading = true;
-      this.postService.getAllPosts(this.pageable).subscribe({
-        next: (v) => {
-          this.isLoading = false;
-          this.postsData = v || {};
-        },
-        error: () => (this.isLoading = false),
-      });
+      requestBody = {
+        page: this.pageable.page,
+        size: this.pageable.size
+      }
     } else if (this.userRole === "CUSTOMER") {
-      this.isLoading = true;
-      const requestBody = {
+      requestBody = {
         users: [this.userId],
         page: this.pageable.page,
         size: this.pageable.size
       }
-      this.postService.getFilteredPosts(requestBody).subscribe({
-        next: (v) => {
-          this.isLoading = false;
-          this.postsData = v || {};
-        },
-        error: () => (this.isLoading = false),
-      });
     }
-    /*
-        let requestBody = {};
-        if (this.userRole === "ADMIN") {
-          requestBody = {
-            page: this.pageable.page,
-            size: this.pageable.size
-          }
-        } else if (this.userRole === "CUSTOMER") {
-          requestBody = {
-            users: [this.userId],
-            page: this.pageable.page,
-            size: this.pageable.size
-          }
-        }
 
-        this.getPostsByRequestBody(requestBody);
-     */
+    this.getPostsByRequestBody(requestBody);
   }
 
   public pageChangeInput(event: PageEvent): void {
@@ -100,26 +73,19 @@ export class PostsComponent implements OnInit, AfterViewInit, AfterViewChecked {
   }
 
   public getPostsByTitle() {
-    let requestBody = {};
-    if (this.userRole === "ADMIN") {
-      requestBody = {
-        title: this.title,
-        page: this.pageable.page,
-        size: this.pageable.size
-      }
-    } else if (this.userRole === "CUSTOMER") {
-      requestBody = {
-        title: this.title,
-        users: [this.userId],
-        page: this.pageable.page,
-        size: this.pageable.size
-      }
+    const requestBody: any = {
+      title: this.title
+    };
+
+     if (this.userRole === "CUSTOMER") {
+      requestBody.users = [this.userId];
     }
+
     this.getPostsByRequestBody(requestBody);
   }
 
-  private getPostsByRequestBody(requestBody: {}) {
-    this.postService.getFilteredPosts(requestBody).subscribe({
+  private getPostsByRequestBody(requestBody:{}) {
+    this.postService.getFilteredPosts(this.pageable, requestBody).subscribe({
       next: (v) => {
         this.isLoading = false;
         this.postsData = v || {};

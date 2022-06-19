@@ -8,42 +8,43 @@ mat-drawer-content {
 .posts-component {
   overflow: visible;
 }
-
 .table-container {
   margin-left: 3%;
 }
-
 table {
   width: 99%;
   max-height: 80%;
   font-size: 0.9em;
   font-family: sans-serif;
   min-width: 400px;
-}
-
-table thead tr {
-  background-color: rebeccapurple;
-  color: #ffffff;
-  text-align: left;
-}
-
-table th, table td {
-  padding: 12px 15px;
-  width: 75%;
-}
-
-table tbody tr {
-  border-bottom: 1px solid #dddddd;
-}
-
-table tbody tr:nth-of-type(even) {
-  background-color: #f3f3f3;
+  thead {
+    tr {
+      background-color: rebeccapurple;
+      color: #ffffff;
+      text-align: left;
+    }
+  }
+  th {
+    padding: 12px 15px;
+    width: 75%;
+  }
+  td {
+    padding: 12px 15px;
+    width: 75%;
+  }
+  tbody {
+    tr {
+      border-bottom: 1px solid #dddddd;
+      &:nth-of-type(even) {
+        background-color: #f3f3f3;
+      }
+    }
+  }
 }
 
 .buttons {
   text-align: center;
 }
-
 .button {
   display: inline-block;
   padding: 0.3em 1.2em;
@@ -57,22 +58,20 @@ table tbody tr:nth-of-type(even) {
   font-weight: bold;
   cursor: pointer;
   transition: all 0.2s;
+  cursor: pointer;
 }
-
 .delete-button {
   background-color: #f14e4e;
-}
-
-.delete-button:hover {
-  background-color: #b21b1b;
+  &:hover {
+    background-color: #b21b1b;
+  }
 }
 
 .edit-button {
   background-color: #9a4ef1;
-}
-
-.edit-button:hover {
-  background-color: rebeccapurple;
+  &:hover {
+    background-color: rebeccapurple;
+  }
 }
 
 .create-button-container {
@@ -86,10 +85,12 @@ table tbody tr:nth-of-type(even) {
   background-color: #39ad47;
   height: 45px;
   width: 150px;
-}
+  white-space: nowrap;
+  padding: 0.5em 1.2em;
 
-.create-button:hover {
-  background-color: #298034;
+  &:hover {
+    background-color: #298034;
+  }
 }
 
 .posts-top-controls-container {
@@ -102,15 +103,12 @@ table tbody tr:nth-of-type(even) {
   font-size: 14px;
   font-weight: 200;
   line-height: 1;
-
   background-color: #eee;
   background-image: url(//addsearch.com/logo/AAAAAA-20.png);
   background-repeat: no-repeat;
   background-position: 95% 50%;
-
   border: 0;
   border-radius: 32px;
-
   width: 95%;
   padding: 15px;
   margin: 10px 0 10px 30px;

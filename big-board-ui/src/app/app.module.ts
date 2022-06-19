@@ -25,7 +25,6 @@ import { ReactiveFormsModule } from "@angular/forms";
     DefaultLayoutModule,
     AdminLayoutModule,
     BrowserAnimationsModule,
-    BrowserAnimationsModule,
     LazyLoadImageModule,
     MatSidenavModule,
     ReactiveFormsModule

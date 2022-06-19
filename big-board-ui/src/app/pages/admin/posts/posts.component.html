@@ -24,6 +24,10 @@
           <button class="button delete-button" (click)="onDeleteClick(post.id)">Delete</button>
         </td>
       </tr>
+
+      <tr *ngIf="!postsData || (postsData.content && !postsData.content.length)">
+        <td><p>No posts found.</p></td>
+      </tr>
       </tbody>
     </table>
   </div>

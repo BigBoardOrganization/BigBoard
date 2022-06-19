@@ -1,8 +1,13 @@
 <mat-drawer-content>
-  <input type="text" class="search"
-         placeholder="What are you looking for?"
-         [(ngModel)]="title"
-         (keyup.enter)="getPostsByTitle()"/>
+  <div class="top-wrapper">
+    <input type="text" class="search"
+          placeholder="What are you looking for?"
+          [(ngModel)]="title"
+          (keyup.enter)="getPostsByTitle()"/>
+
+    <button class="button create-button">Create new post</button>
+  </div>
+
   <div class="table-container">
     <table>
       <thead>
@@ -19,11 +24,12 @@
             <button class="button edit-button">Edit</button>
           </td>
         </tr>
+
+        <tr *ngIf="!postsData || (postsData.content && !postsData.content.length)">
+          <td><p>No posts found.</p></td>
+        </tr>
       </tbody>
     </table>
-  </div>
-  <div class="create-button-container">
-    <button class="button create-button">Create new post</button>
   </div>
   <div class="pagination">
     <mat-paginator

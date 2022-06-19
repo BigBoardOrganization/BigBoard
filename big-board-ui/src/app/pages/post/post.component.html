@@ -7,7 +7,7 @@
 
       <ul class="breadcrumbs">
         <li [routerLink]="'/'">Home</li> /
-        <li [routerLink]="'/category/' + post.categoryId">{{ getCategoryNameId(post.categoryId) }}</li> /
+        <li [routerLink]="'/category/' + post.category?.id">{{ post.category?.name }}</li> /
         <li [routerLink]="'/post/' + post.id">{{ post.title }}</li>
       </ul>
     </div>
@@ -17,8 +17,8 @@
 
       <div class="content">
         <div class="content-header">
-          <h3 class="category">{{getCategoryNameId(post.categoryId)}}</h3> -
-          <h3 class="date">{{post.createdDate}}</h3>
+          <h3 class="category">{{post.category?.name}}</h3> -
+          <h3 class="date">{{post.createdDate}} - {{post.user?.username}}</h3>
         </div>
 
         <h1 class="title">{{post.title}}</h1>

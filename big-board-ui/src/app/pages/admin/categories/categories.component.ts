@@ -19,7 +19,7 @@ export class CategoriesComponent implements OnInit {
     size: 7,
   };
 
-  name: string = ''
+  public name: string = '';
 
   constructor(private categoryService: CategoryService, private router: Router,) { }
 
@@ -29,7 +29,7 @@ export class CategoriesComponent implements OnInit {
 
   public getCategories(): void {
     this.isLoading = true;
-    this.categoryService.getPageOfCategories(this.pageable).subscribe({
+    this.categoryService.getPageOfCategories(this.name, this.pageable).subscribe({
       next: (v) => {
         this.isLoading = false;
         this.categoriesData = v || {};
@@ -45,7 +45,7 @@ export class CategoriesComponent implements OnInit {
   }
 
   public getCategoriesByName() {
-    console.log(this.name)
+    this.getCategories();
   }
 
   public loadCategory(id: number): void {

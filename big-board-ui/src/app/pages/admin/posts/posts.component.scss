@@ -34,6 +34,11 @@ table {
     }
   }
 }
+.top-wrapper{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 .pagination {
   position: absolute;
   bottom: 0;
@@ -53,6 +58,7 @@ table {
   text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
   text-align: center;
   transition: all 0.2s;
+  cursor: pointer;
 }
 .delete-button {
   background-color: #f14e4e;
@@ -60,23 +66,24 @@ table {
     background-color: #ee2626;
   }
 }
+
 .edit-button {
   background-color: #9a4ef1;
   &:hover {
     background-color: rebeccapurple;
   }
 }
+
 .create-button {
-  background-color: #43dc55;
+  white-space: nowrap;
+  padding: 0.5em 1.2em;
+
+  background-color: #68ae70;
   &:hover {
     background-color: #43c055;
   }
 }
-.create-button-container {
-  position: absolute;
-  bottom: 2%;
-  left: 3%;
-}
+
 .search {
   font-size: 14px;
   font-weight: 200;

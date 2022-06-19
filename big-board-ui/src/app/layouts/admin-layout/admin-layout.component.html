@@ -3,7 +3,7 @@
   <div class="content">
     <router-outlet></router-outlet>
 
-    <mat-drawer-container class="container">
+    <mat-drawer-container class="container" [ngClass]="{'container-empty': !selectedPage}">
       <mat-drawer mode="side" opened class="sidebar">
         <mat-selection-list [multiple]="false" class="types-list" (selectionChange)="getSelectedPageData($event)">
           <mat-list-option *ngFor="let page of pages" [value]="page" class="type">

@@ -39,3 +39,9 @@
 img {
   width: 80%;
 }
+
+:host ::ng-deep .container-empty {
+  .mat-drawer-content {
+    overflow: hidden;
+  }
+}

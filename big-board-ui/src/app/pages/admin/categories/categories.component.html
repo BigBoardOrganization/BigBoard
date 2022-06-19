@@ -18,6 +18,9 @@
           <button class="button open-page-button" (click)="loadCategory(category.id)">Open category page</button>
         </td>
       </tr>
+      <tr *ngIf="!categoriesData || (categoriesData.content && !categoriesData.content.length)">
+        <td><p>No categories found.</p></td>
+      </tr>
       </tbody>
     </table>
   </div>

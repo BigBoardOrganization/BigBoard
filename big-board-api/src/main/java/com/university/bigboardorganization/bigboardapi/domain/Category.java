@@ -21,6 +21,7 @@ public class Category {
 
     private String name;
 
+    @Column(length = 5000)
     private String description;
 
     private String color;

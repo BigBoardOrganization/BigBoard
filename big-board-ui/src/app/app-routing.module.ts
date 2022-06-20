@@ -1,3 +1,4 @@
+import { SignupModule } from './pages/signup/signup.module';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -13,7 +14,9 @@ const routes: Routes = [
       {path: '', loadChildren: () => import("./pages/main/main.module").then(module => module.MainModule)},
       {path: 'category/:id', loadChildren: () => import("./pages/main/main.module").then(module => module.MainModule)},
       {path: 'post/:id', loadChildren: () => import("./pages/post/post.module").then(module => module.PostModule)},
+      {path: 'profile', loadChildren: () => import("./pages/user-profile/user-profile.module").then(module => module.UserProfileModule), canActivate: [AuthGuard]},
       {path: 'signin', loadChildren: () => import("./pages/login/login.module").then(module => module.LoginModule)},
+      {path: 'signup', loadChildren: () => import("./pages/signup/signup.module").then(module => module.SignupModule)},
     ]
   },
   {

@@ -10,7 +10,7 @@ export class AuthenticationService {
 
   constructor(private apiService: ApiService) {
     this.currentUserSubject = new BehaviorSubject<any>(
-      JSON.parse(localStorage.getItem('currentUser') || "null")
+      JSON.parse(localStorage.getItem('currentUser') || 'null')
     );
     this.currentUser = this.currentUserSubject.asObservable();
   }
@@ -19,20 +19,26 @@ export class AuthenticationService {
     return this.currentUserSubject.value;
   }
 
-  login(body: any): Observable<any> {
+  public login(body: any): Observable<any> {
     return this.apiService
       .post('/api/users/login', { body })
-      .pipe(
-        map((user) => {
-          localStorage.setItem('currentUser', JSON.stringify(user));
-          this.currentUserSubject.next(user);
-          return user;
-        })
-      );
+      .pipe(map((user) => this.cacheUser(user)));
   }
 
-  logout() {
+  public register(body: any): Observable<any> {
+    return this.apiService
+      .post('/api/users', { body })
+      .pipe(map((user) => this.cacheUser(user)));
+  }
+
+  public logout() {
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
+  }
+
+  private cacheUser(user: any): any {
+    localStorage.setItem('currentUser', JSON.stringify(user));
+    this.currentUserSubject.next(user);
+    return user;
   }
 }

@@ -38,7 +38,7 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/**")
+        registry.addResourceHandler("/*", "/post/**", "/user/**", "/category/**")
                 .addResourceLocations("classpath:/static/")
                 .resourceChain(true)
                 .addResolver(new PathResourceResolver() {

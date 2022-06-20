@@ -1,6 +1,19 @@
 <div class="container">
-  <form action="" [formGroup]="form" class="form" (ngSubmit)="login()">
-    <h2 class="title">Login</h2>
+  <form action="" [formGroup]="form" class="form" (ngSubmit)="signup()">
+    <h2 class="title">Sign Up</h2>
+    <mat-form-field floatLabel="auto">
+      <label for="username">Username</label>
+      <input
+        id="username"
+        name="username"
+        type="text"
+        matInput
+        formControlName="username"
+      />
+      <mat-error *ngIf="form.get('username')?.invalid"
+        >Username is invalid</mat-error
+      >
+    </mat-form-field>
 
     <mat-form-field floatLabel="auto">
       <label for="email">Email</label>
@@ -22,7 +35,21 @@
         >Password is invalid</mat-error
       >
     </mat-form-field>
-    <mat-error *ngIf="beError">Invalid credentials</mat-error>
+
+    <mat-form-field floatLabel="auto">
+      <label for="phoneNumber">Phone Number</label>
+      <input
+        id="phoneNumber"
+        name="phoneNumber"
+        type="number"
+        matInput
+        formControlName="phoneNumber"
+      />
+      <mat-error *ngIf="form.get('phoneNumber')?.invalid"
+        >Phone Number is invalid</mat-error
+      >
+    </mat-form-field>
+    <mat-error *ngIf="beError">Invalid information</mat-error>
     <button
       [disabled]="form.invalid || isLoading"
       mat-raised-button
@@ -35,7 +62,7 @@
         [diameter]="20"
         [strokeWidth]="2"
       ></mat-spinner>
-      Login
+      Sign Up
     </button>
   </form>
 </div>

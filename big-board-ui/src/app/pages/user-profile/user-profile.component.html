@@ -1,0 +1,26 @@
+<div class="wrapper">
+  <div class="top-background">
+    <mat-icon class="user-photo"> person_pin</mat-icon>
+  </div>
+  <div class="container">
+
+    <table class="table">
+      <tr>
+        <td class="label">Username: </td>
+        <td class="value">{{user.username | titlecase}}</td>
+      </tr>
+      <tr>
+        <td class="label">Email: </td>
+        <td class="value">{{user.email}}</td>
+      </tr>
+      <tr>
+        <td class="label">Phone: </td>
+        <td class="value">+{{user.phoneNumber || '--'}}</td>
+      </tr>
+      <tr>
+        <td class="label">Role: </td>
+        <td class="value">{{user.userRole | lowercase | titlecase}}</td>
+      </tr>
+    </table>
+  </div>
+</div>

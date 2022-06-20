@@ -1,7 +1,7 @@
 <main class="main">
   <app-header></app-header>
   <div class="content">
-    <mat-drawer-container class="container">
+    <mat-drawer-container class="container" [ngClass]="{'container-empty': !selectedPage}">
       <mat-drawer mode="side" opened class="sidebar">
           <mat-selection-list [multiple]="false" class="types-list"
                               (selectionChange)="getSelectedPageData($event)">
@@ -14,8 +14,6 @@
       <router-outlet></router-outlet>
       <div *ngIf="!selectedPage" class="data-image">
         <img src="https://cdn.dribbble.com/users/2394319/screenshots/4773525/media/3abebd7f14032c54245cb54cf48d17a3.png" alt="data">
-        <img src="https://cdn.dribbble.com/users/2394319/screenshots/4773525/media/3abebd7f14032c54245cb54cf48d17a3.png"
-             alt="data">
       </div>
     </mat-drawer-container>
 

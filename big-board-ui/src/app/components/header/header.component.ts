@@ -29,12 +29,12 @@ export class HeaderComponent implements OnInit {
       {
         title: 'Open Admin',
         icon: 'developer_board',
-        action: () => this.router.navigate(['/admin']),
+        action: () => this.router.navigate(['/admin/posts']),
       },
       {
         title: 'Visit Profile',
         icon: 'person',
-        action: () => {},
+        action: () => this.router.navigate(['/profile']),
       },
       {
         title: 'Logout',
@@ -61,5 +61,9 @@ export class HeaderComponent implements OnInit {
 
   public goToLogin(): void {
     this.router.navigate(['/signin'])
+  }
+
+  public goToSignup(): void {
+    this.router.navigate(['/signup'])
   }
 }

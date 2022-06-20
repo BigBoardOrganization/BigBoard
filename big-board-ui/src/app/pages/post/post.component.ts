@@ -17,7 +17,7 @@ export class PostComponent implements OnInit {
 
   public categories: any[] = [];
 
-  defaultImageUrl: string = "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1064&q=80";
+  defaultImageUrl: string = "https://cdn.dribbble.com/users/844846/screenshots/2855815/no_image_to_show_.jpg";
 
   constructor(
     private activatedRoute: ActivatedRoute,

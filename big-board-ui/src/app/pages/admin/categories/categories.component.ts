@@ -3,6 +3,7 @@ import { PageEvent } from "@angular/material/paginator";
 import { CategoryService } from "../../../services/category/category.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AuthenticationService} from "../../../services/authentication/authentication.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-categories',
@@ -28,6 +29,7 @@ export class CategoriesComponent implements OnInit, AfterViewInit, AfterViewChec
               private router: Router,
               private authService: AuthenticationService,
               private changeDetector: ChangeDetectorRef,
+              private snackBar: MatSnackBar,
               private route: ActivatedRoute) {
   }
 
@@ -79,5 +81,16 @@ export class CategoriesComponent implements OnInit, AfterViewInit, AfterViewChec
     this.router.navigate(['create'], {relativeTo: this.route})
   }
 
+  public onDeleteClick(id:number) {
+    this.categoryService.deleteCategory(id).subscribe({
+      next: () => {
+        this.getCategories()
+      }, error: () => {
+        this.snackBar.open('Unable to delete!', 'Ok', {
+          duration: 5000,
+        });
+    }
+    });
+  }
 
 }

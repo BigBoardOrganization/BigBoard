@@ -23,4 +23,8 @@ export class CategoryService {
     return this.api.post(`/api/category`, {body: category});
   }
 
+  public deleteCategory(id: number): Observable<any> {
+    return this.api.delete(`/api/category/${id}`, {});
+  }
+
 }

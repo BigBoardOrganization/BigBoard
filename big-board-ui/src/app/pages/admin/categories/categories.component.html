@@ -21,6 +21,7 @@
         <td>{{category.name | trim: 80}}</td>
         <td class="buttons">
           <button class="button open-page-button" (click)="loadCategory(category.id)">Open category page</button>
+          <button *ngIf="isAdmin" class="button delete-button" (click)="onDeleteClick(category.id)">Delete</button>
         </td>
       </tr>
       <tr *ngIf="!categoriesData || (categoriesData.content && !categoriesData.content.length)">

@@ -56,7 +56,6 @@ export class CategoryCreateEditComponent implements OnInit {
       },
       error: (e) => console.log(e)
     })
-
   }
 
   onCancelClick() {

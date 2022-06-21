@@ -22,7 +22,7 @@ table thead tr {
 
 table th, table td {
   padding: 12px 15px;
-  width: 65%;
+  //width: 65%;
 }
 
 table tbody tr {
@@ -37,6 +37,10 @@ table tbody tr:nth-of-type(even) {
   position: absolute;
   bottom: 0;
   right: 0;
+}
+
+.category-name {
+  width: 40%;
 }
 
 .buttons {
@@ -56,14 +60,22 @@ table tbody tr:nth-of-type(even) {
   font-weight: bold;
   cursor: pointer;
   transition: all 0.2s;
-  cursor: pointer;
 }
 
 .open-page-button {
   background-color: #4e69f1;
 }
+
 .open-page-button:hover {
   background-color: #3a55f6;
+}
+
+.edit-button {
+  background-color: #9a4ef1;
+
+  &:hover {
+    background-color: rebeccapurple;
+  }
 }
 
 .search {

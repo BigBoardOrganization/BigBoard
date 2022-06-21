@@ -1,6 +1,6 @@
-import { AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { PageEvent } from "@angular/material/paginator";
-import { CategoryService } from "../../../services/category/category.service";
+import {AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {PageEvent} from "@angular/material/paginator";
+import {CategoryService} from "../../../services/category/category.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AuthenticationService} from "../../../services/authentication/authentication.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
@@ -89,8 +89,11 @@ export class CategoriesComponent implements OnInit, AfterViewInit, AfterViewChec
         this.snackBar.open('Unable to delete!', 'Ok', {
           duration: 5000,
         });
-    }
+      }
     });
   }
 
+  onEditClick(id: number) {
+    this.router.navigate(['edit', id], {relativeTo: this.route});
+  }
 }

@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {CategoryService} from "../../services/category/category.service";
 import {AuthenticationService} from "../../services/authentication/authentication.service";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {icons} from "./icons"
 
 @Component({
@@ -19,16 +19,21 @@ export class CategoryCreateEditComponent implements OnInit {
 
   public icons: string[] = icons
 
+  categoryId: number | undefined
+  isEdit: boolean = false
+
   constructor(private categoryService: CategoryService,
               private authService: AuthenticationService,
               private formBuilder: FormBuilder,
-              private router: Router
+              private router: Router,
+              private route: ActivatedRoute
   ) {
   }
 
   ngOnInit(): void {
     this.checkIsAdmin()
     this.generateForm()
+    this.initIfEdit()
   }
 
   private checkIsAdmin() {
@@ -45,6 +50,27 @@ export class CategoryCreateEditComponent implements OnInit {
       description: new FormControl("", [Validators.required, this.noWhitespaceValidator]),
       icon: new FormControl("", [Validators.required]),
       color: new FormControl("#00bfde")
+    })
+  }
+
+  private initIfEdit() {
+    this.route.params.subscribe(params => {
+      if (params.hasOwnProperty("categoryId")) {
+        this.categoryId = params["categoryId"]
+        this.isEdit = true
+        this.pageButtonTitle = "Save"
+        this.pageButtonTitle = "Edit category"
+        this.setDataToFields(this.categoryId!)
+      }
+    })
+  }
+
+  setDataToFields(categoryId: number): void {
+    this.categoryService.getCategory(categoryId).subscribe({
+      next: (category) => {
+        this.categoryForm.patchValue(category)
+      },
+      error: () => this.router.navigate(['/']),
     })
   }
 

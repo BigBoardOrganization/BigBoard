@@ -67,17 +67,38 @@ table tbody tr:nth-of-type(even) {
   font-size: 14px;
   font-weight: 200;
   line-height: 1;
-
   background-color: #eee;
-  background-image: url( //addsearch.com/logo/AAAAAA-20.png );
+  background-image: url(//addsearch.com/logo/AAAAAA-20.png);
   background-repeat: no-repeat;
   background-position: 95% 50%;
-
   border: 0;
   border-radius: 32px;
-
   width: 95%;
   padding: 15px;
   margin: 10px 0 10px 30px;
   cursor: auto;
+}
+.create-button {
+  top: 3%;
+  background-color: #39ad47;
+  height: 45px;
+  width: 150px;
+  white-space: nowrap;
+  padding: 0.5em 1.2em;
+
+  &:hover {
+    background-color: #298034;
+  }
+}
+
+.posts-top-controls-container {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+}
+.create-button-container {
+  width: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

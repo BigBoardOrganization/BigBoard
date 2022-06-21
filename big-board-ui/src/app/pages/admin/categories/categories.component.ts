@@ -1,7 +1,8 @@
 import { AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { PageEvent } from "@angular/material/paginator";
 import { CategoryService } from "../../../services/category/category.service";
-import { Router } from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
+import {AuthenticationService} from "../../../services/authentication/authentication.service";
 
 @Component({
   selector: 'app-categories',
@@ -14,6 +15,8 @@ export class CategoriesComponent implements OnInit, AfterViewInit, AfterViewChec
 
   public isLoading: boolean = true;
 
+  public isAdmin: boolean = false;
+
   private pageable: any = {
     page: 0,
     size: 7,
@@ -23,10 +26,15 @@ export class CategoriesComponent implements OnInit, AfterViewInit, AfterViewChec
 
   constructor(private categoryService: CategoryService,
               private router: Router,
-              private changeDetector: ChangeDetectorRef,) {
+              private authService: AuthenticationService,
+              private changeDetector: ChangeDetectorRef,
+              private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
+    this.authService.currentUser.subscribe((value) => {
+      this.isAdmin = value.userRole === "ADMIN"
+    })
     this.getCategories();
   }
 
@@ -66,5 +74,10 @@ export class CategoriesComponent implements OnInit, AfterViewInit, AfterViewChec
       this.router.navigate(['/'])
     }
   }
+
+  onCreateClick() {
+    this.router.navigate(['create'], {relativeTo: this.route})
+  }
+
 
 }

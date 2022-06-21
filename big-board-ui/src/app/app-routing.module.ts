@@ -7,6 +7,7 @@ import { DefaultLayoutComponent } from './layouts/default-layout/default-layout.
 import { PostCreateEditComponent } from "./components/post-create-edit/post-create-edit.component";
 import { PostsComponent } from "./pages/admin/posts/posts.component";
 import { CategoriesComponent } from "./pages/admin/categories/categories.component";
+import {CategoryCreateEditComponent} from "./components/category-create-edit/category-create-edit.component";
 
 const routes: Routes = [
   {
@@ -25,6 +26,8 @@ const routes: Routes = [
       {path: 'categories', component: CategoriesComponent, canActivate: [AuthGuard]},
       {path: 'posts/create', component: PostCreateEditComponent, canActivate: [AuthGuard]},
       {path: 'posts/edit/:postId', component: PostCreateEditComponent, canActivate: [AuthGuard]},
+      {path: 'categories/create', component: CategoryCreateEditComponent, canActivate: [AuthGuard]},
+      {path: 'categories/edit/:postId', component: CategoryCreateEditComponent, canActivate: [AuthGuard]},
     ]
   },
 ];

@@ -19,4 +19,8 @@ export class CategoryService {
     return this.api.get(`/api/category?name=${name}`, {params});
   }
 
+  public createCategory(category: any): Observable<any> {
+    return this.api.post(`/api/category`, {body: category});
+  }
+
 }

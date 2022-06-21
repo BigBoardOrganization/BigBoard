@@ -11,12 +11,16 @@ import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { PostCreateEditComponent } from './components/post-create-edit/post-create-edit.component';
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { ReactiveFormsModule } from "@angular/forms";
+import { CategoryCreateEditComponent } from './components/category-create-edit/category-create-edit.component';
+import {MatIconModule} from "@angular/material/icon";
+import {MatSelectModule} from "@angular/material/select";
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    PostCreateEditComponent
+    PostCreateEditComponent,
+    CategoryCreateEditComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +31,9 @@ import { ReactiveFormsModule } from "@angular/forms";
     BrowserAnimationsModule,
     LazyLoadImageModule,
     MatSidenavModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatIconModule,
+    MatSelectModule
   ],
   providers: [],
   exports: [

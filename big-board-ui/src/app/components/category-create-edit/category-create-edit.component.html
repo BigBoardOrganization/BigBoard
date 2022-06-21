@@ -1,0 +1,62 @@
+<form [formGroup]="categoryForm">
+  <div class="create-header">
+    <div class="mat-h1 name">{{pageTitle}}</div>
+    <div class="controls">
+      <button class="button create-button" (click)="onCreateClick()"
+              [disabled]="categoryForm.invalid">
+        {{ pageButtonTitle }}
+      </button>
+      <button class="button cancel-button" (click)="onCancelClick()">Cancel</button>
+    </div>
+  </div>
+  <div class="inputs-container">
+    <div class="input-control">
+      <div class="data-row">
+        <label class="data-label">
+          Name
+        </label>
+        <input class="data-enter data-input" name="name"
+               [ngClass]="getErroredFieldClass(nameControl)"
+               formControlName="name" placeholder="Name" required>
+      </div>
+      <div *ngIf="nameControl.touched && nameControl.hasError('whitespace')" class="error-message">
+        The field 'Name' is required.
+      </div>
+    </div>
+    <div class="input-control">
+      <div class="data-row">
+        <label class="data-label">
+          Description
+        </label>
+        <textarea class="data-enter data-input description" name="description"
+                  [ngClass]="getErroredFieldClass(descriptionControl)"
+                  formControlName="description" placeholder="Description">
+        </textarea>
+      </div>
+      <div *ngIf="descriptionControl.touched && descriptionControl.hasError('whitespace')" class="error-message">
+        The field 'Description' is required.
+      </div>
+    </div>
+    <div class="input-control">
+      <div class="data-row">
+        <label class="data-label">
+          Icon
+        </label>
+        <mat-select class="data-enter dropdown-data-input" name="icon"
+                    [ngClass]="getErroredFieldClass(iconControl)"
+                    formControlName="icon" required>
+          <mat-select-trigger>
+            {{categoryForm.get('icon')?.value}}
+          </mat-select-trigger>
+          <mat-option *ngFor="let icon of icons" [value]="icon">
+            <mat-icon>{{icon}}</mat-icon> {{icon}}
+          </mat-option>
+        </mat-select>
+      </div>
+      <div *ngIf="iconControl.touched && iconControl.hasError('required')" class="error-message">
+        The field 'Icon' is required.
+      </div>
+    </div>
+  </div>
+</form>
+

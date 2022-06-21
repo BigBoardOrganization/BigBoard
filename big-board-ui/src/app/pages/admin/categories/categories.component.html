@@ -1,8 +1,13 @@
 <mat-drawer-content>
-  <input type="text" class="search"
-         placeholder="What are you looking for?"
-         [(ngModel)]="name"
-         (keyup.enter)="getCategoriesByName()"/>
+  <div class="posts-top-controls-container">
+    <input type="text" class="search"
+           placeholder="What are you looking for?"
+           [(ngModel)]="name"
+           (keyup.enter)="getCategoriesByName()"/>
+    <div class="create-button-container" *ngIf="isAdmin">
+      <button class="button create-button" (click)="onCreateClick()">Add new category</button>
+    </div>
+  </div>
   <div class="table-container">
     <table>
       <thead>

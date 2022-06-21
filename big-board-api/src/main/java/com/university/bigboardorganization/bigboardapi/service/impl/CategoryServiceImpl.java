@@ -1,22 +1,21 @@
 package com.university.bigboardorganization.bigboardapi.service.impl;
 
-import com.querydsl.core.types.Predicate;
 import com.university.bigboardorganization.bigboardapi.domain.Category;
-import com.university.bigboardorganization.bigboardapi.domain.QCategory;
 import com.university.bigboardorganization.bigboardapi.dto.CategoryCreateRequest;
 import com.university.bigboardorganization.bigboardapi.dto.CategoryDto;
 import com.university.bigboardorganization.bigboardapi.dto.CategoryUpdateRequest;
+import com.university.bigboardorganization.bigboardapi.exception.EntityDuplicatesException;
 import com.university.bigboardorganization.bigboardapi.exception.EntityNotFoundException;
 import com.university.bigboardorganization.bigboardapi.mapper.CategoryMapper;
 import com.university.bigboardorganization.bigboardapi.repository.CategoryRepository;
 import com.university.bigboardorganization.bigboardapi.service.CategoryService;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -33,9 +32,10 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Page<CategoryDto> findAll(String name, Pageable pageable) {
-        QCategory qCategory = QCategory.category;
-        Predicate predicate = StringUtils.isNotBlank(name) ? qCategory.name.contains(name) : qCategory.id.isNotNull();
-        return categoryRepository.findAll(predicate, pageable).map((categoryMapper::categoryToCategoryDto));
+//        QCategory qCategory = QCategory.category;
+//        Predicate predicate = StringUtils.isNotBlank(name) ? qCategory.name.contains(name) : qCategory.id.isNotNull();
+//        return categoryRepository.findAll(predicate, pageable).map((categoryMapper::categoryToCategoryDto));
+        return null;
     }
 
     @Override
@@ -45,6 +45,8 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public CategoryDto create(CategoryCreateRequest categoryCreateRequest) {
+        validateNotDuplicates(-1L, categoryCreateRequest.getName());
+
         Category category = Category.builder()
                 .icon(categoryCreateRequest.getIcon())
                 .name(categoryCreateRequest.getName())
@@ -58,6 +60,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public CategoryDto update(Long id, CategoryUpdateRequest categoryUpdateRequest) {
         Category categoryFromDB = findByIdOrThrow(id);
+        validateNotDuplicates(id, categoryUpdateRequest.getName());
 
         Category category = categoryFromDB.toBuilder()
                 .icon(categoryUpdateRequest.getIcon())
@@ -88,6 +91,14 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryRepository.findAll().stream()
                 .map(Category::getId)
                 .toList();
+    }
+
+    private void validateNotDuplicates(Long id, String name) {
+        categoryRepository.findAllByName(name).forEach((Category cat) -> {
+            if (!Objects.equals(cat.getId(), id)) {
+                throw new EntityDuplicatesException("Category", "name", cat.getName());
+            }
+        });
     }
 
 }

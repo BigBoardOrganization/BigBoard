@@ -33,4 +33,8 @@ export class CategoryService {
   public getCategory(id: number): Observable<any> {
     return this.api.get(`${this.apiPath}/${id}`, {});
   }
+
+  public updateCategory(id: number, category: any): Observable<any> {
+    return this.api.put(`${this.apiPath}/${id}`, {body: category});
+  }
 }

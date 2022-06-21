@@ -4,6 +4,7 @@ import {AuthenticationService} from "../../services/authentication/authenticatio
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {icons} from "./icons"
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-category-create-edit',
@@ -26,7 +27,8 @@ export class CategoryCreateEditComponent implements OnInit {
               private authService: AuthenticationService,
               private formBuilder: FormBuilder,
               private router: Router,
-              private route: ActivatedRoute
+              private route: ActivatedRoute,
+              private snackBar: MatSnackBar
   ) {
   }
 
@@ -59,7 +61,7 @@ export class CategoryCreateEditComponent implements OnInit {
         this.categoryId = params["categoryId"]
         this.isEdit = true
         this.pageButtonTitle = "Save"
-        this.pageButtonTitle = "Edit category"
+        this.pageTitle = "Edit category"
         this.setDataToFields(this.categoryId!)
       }
     })
@@ -76,12 +78,30 @@ export class CategoryCreateEditComponent implements OnInit {
 
   onCreateClick() {
     let category = this.categoryForm.value
-    this.categoryService.createCategory(category).subscribe({
-      next: () => {
-        this.router.navigate(['admin/categories'])
-      },
-      error: (e) => console.log(e)
-    })
+    if (this.isEdit) {
+      category.id = this.categoryId
+      this.categoryService.updateCategory(this.categoryId!, category).subscribe({
+        next: () => {
+          this.router.navigate(['admin/categories'])
+        },
+        error: () => {
+          this.snackBar.open('Unable to update!', 'Ok', {
+            duration: 5000,
+          });
+        }
+      })
+    } else {
+      this.categoryService.createCategory(category).subscribe({
+        next: () => {
+          this.router.navigate(['admin/categories'])
+        },
+        error: () => {
+          this.snackBar.open('Unable to crete!', 'Ok', {
+            duration: 5000,
+          });
+        }
+      })
+    }
   }
 
   onCancelClick() {

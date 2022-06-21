@@ -1,6 +1,8 @@
 package com.university.bigboardorganization.bigboardapi.service.impl;
 
+import com.querydsl.core.types.Predicate;
 import com.university.bigboardorganization.bigboardapi.domain.Category;
+import com.university.bigboardorganization.bigboardapi.domain.QCategory;
 import com.university.bigboardorganization.bigboardapi.dto.CategoryCreateRequest;
 import com.university.bigboardorganization.bigboardapi.dto.CategoryDto;
 import com.university.bigboardorganization.bigboardapi.dto.CategoryUpdateRequest;
@@ -32,10 +34,9 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Page<CategoryDto> findAll(String name, Pageable pageable) {
-//        QCategory qCategory = QCategory.category;
-//        Predicate predicate = StringUtils.isNotBlank(name) ? qCategory.name.contains(name) : qCategory.id.isNotNull();
-//        return categoryRepository.findAll(predicate, pageable).map((categoryMapper::categoryToCategoryDto));
-        return null;
+        QCategory qCategory = QCategory.category;
+        Predicate predicate = StringUtils.isNotBlank(name) ? qCategory.name.contains(name) : qCategory.id.isNotNull();
+        return categoryRepository.findAll(predicate, pageable).map((categoryMapper::categoryToCategoryDto));
     }
 
     @Override

@@ -1,7 +1,9 @@
-import { AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { PageEvent } from "@angular/material/paginator";
-import { CategoryService } from "../../../services/category/category.service";
-import { Router } from "@angular/router";
+import {AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {PageEvent} from "@angular/material/paginator";
+import {CategoryService} from "../../../services/category/category.service";
+import {ActivatedRoute, Router} from "@angular/router";
+import {AuthenticationService} from "../../../services/authentication/authentication.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-categories',
@@ -14,6 +16,8 @@ export class CategoriesComponent implements OnInit, AfterViewInit, AfterViewChec
 
   public isLoading: boolean = true;
 
+  public isAdmin: boolean = false;
+
   private pageable: any = {
     page: 0,
     size: 7,
@@ -23,10 +27,16 @@ export class CategoriesComponent implements OnInit, AfterViewInit, AfterViewChec
 
   constructor(private categoryService: CategoryService,
               private router: Router,
-              private changeDetector: ChangeDetectorRef,) {
+              private authService: AuthenticationService,
+              private changeDetector: ChangeDetectorRef,
+              private snackBar: MatSnackBar,
+              private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
+    this.authService.currentUser.subscribe((value) => {
+      this.isAdmin = value.userRole === "ADMIN"
+    })
     this.getCategories();
   }
 
@@ -67,4 +77,23 @@ export class CategoriesComponent implements OnInit, AfterViewInit, AfterViewChec
     }
   }
 
+  onCreateClick() {
+    this.router.navigate(['create'], {relativeTo: this.route})
+  }
+
+  public onDeleteClick(id:number) {
+    this.categoryService.deleteCategory(id).subscribe({
+      next: () => {
+        this.getCategories()
+      }, error: () => {
+        this.snackBar.open('Unable to delete!', 'Ok', {
+          duration: 5000,
+        });
+      }
+    });
+  }
+
+  onEditClick(id: number) {
+    this.router.navigate(['edit', id], {relativeTo: this.route});
+  }
 }
